@@ -1,5 +1,7 @@
 {
   "name": "entre-personal",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
