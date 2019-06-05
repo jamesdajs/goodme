@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioProvider } from 'src/app/services/usuario/usuario';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 declare var google: any;
 @Component({
   selector: 'app-mod-perfil',
@@ -37,7 +37,8 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     public toastController: ToastController,
     private router: Router,
-    private user: UsuarioProvider
+    private user: UsuarioProvider,
+    public loadingController: LoadingController
   ) {
     for (let key in this.datos)
       this.datos[key] = this.route.snapshot.paramMap.get(key) == null ? '' : this.route.snapshot.paramMap.get(key)
@@ -85,6 +86,7 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
     toast.present();
   }
   guardar() {
+    //let loading=this.presentLoading('Guardando datos')
     if (this.myForm.valid && this.myFormins.valid)
       Promise.all([
         this.user.crearOupdatedatosInstructor(this.myFormins.value, this.id),
@@ -150,5 +152,12 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
         }
       });
     });
+  }
+  async presentLoading(text) {
+    const loading = await this.loadingController.create({
+      message: text,
+    });
+    await loading.present();
+    return loading
   }
 }
