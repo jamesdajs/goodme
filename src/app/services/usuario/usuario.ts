@@ -271,8 +271,8 @@ verSitienenDatos() {
       values = [Datos.id, Datos.name, Datos.foto, Datos.email]
 
     } else {
-      sql = "INSERT into  usuarios (idfacebook,fullname,foto,correo) VALUES (?,?,?,?);SELECT LAST_INSERT_ID()"
-      values = [Datos.id, Datos.name, Datos.foto, Datos.email]
+      sql = "INSERT into  usuarios (idfacebook,fullname,foto) VALUES (?,?,?,?);SELECT LAST_INSERT_ID()"
+      values = [Datos.id, Datos.name, Datos.foto]
     }
 
     return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
