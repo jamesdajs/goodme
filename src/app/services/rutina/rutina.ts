@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import {AngularFireAuth} from '@angular/fire/auth';
 import { map } from "rxjs/operators";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 /*
   Generated class for the RutinaProvider provider.
 
@@ -15,11 +16,12 @@ import { map } from "rxjs/operators";
 export class RutinaProvider {
 
   constructor(private db: AngularFirestore,
-    private auth:AngularFireAuth
+    private auth:AngularFireAuth,
+    private http:HttpClient
     ) {
     console.log('Hello RutinaProvider Provider');
   }
-  
+  /*
   private getcollArrayconkey(coll,query?):Observable<any>{
     return this.db.collection(coll,query)
     .snapshotChanges().pipe(map(change=>{
@@ -85,6 +87,45 @@ export class RutinaProvider {
     let query=res=>res.where("idrutina","==",keyrut)
                       .where("idejercicio","==",keyejer)
     return this.getcollitemquery("rutina_ejer",query)
-  }
-
+  }*/
+  urlInsert="http://192.168.1.13/goodmeServe/public/usuarios"
+  urlSelect="http://192.168.1.13/goodmeServe/public/usuarios/select"
+  urlUpdate="http://192.168.1.13/goodmeServe/public/usuarios/modificar"
+  urlDelete="http://192.168.1.13/goodmeServe/public/usuarios/eliminar"
+  headers= new HttpHeaders({
+    'Content-Type':  'application/json',
+    'X-CSRF-TOKEN':"token",
+    'Authorization':"token"
+  })
+  
+    guardarusuario(Datos){
+      let sql="INSERT into  usuarios (idfacebook,fullname,foto,correo) VALUES (?,?,?,?);SELECT LAST_INSERT_ID()"
+      let values=[Datos.id,Datos.name,Datos.foto,Datos.email]
+      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    actualizarusuario(Datos){
+      let sql="update usuarios set fullname = ?,foto = ?,correo=? where idfacebook = ?"
+      let values=[Datos.name,Datos.foto,Datos.email,Datos.id]
+      return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    listarusuarios(){
+      let sql="select * from usuarios"
+      let values=[]
+      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    verUsuarioIDfb(idfb):Promise<any>{
+      let sql="select * from usuarios where idfacebook=?"
+      let values=[idfb]
+      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    verUsuarioIDdb(id):Promise<any>{
+      let sql="select * from usuarios where idusuarios=?"
+      let values=[id]
+      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
 }

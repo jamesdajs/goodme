@@ -1,11 +1,65 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>perfil</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-title>perfil</ion-title>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-<ion-button (click)="modperfil()" block>
-  modificar perfil
-</ion-button>
+<ion-content>
+
+	<ion-card color="carts">
+		<ion-card-content>
+			<ion-item>
+				<ion-avatar item-start>
+					<img [src]="datos.foto" class="foto" />
+				</ion-avatar>
+				<ion-label>{{datos.fullname}}</ion-label>
+				
+
+
+				<ion-button *ngIf="!verdatos; else ocultar" fill="outline" size='small' color="normal"
+					(click)="verdatos=!verdatos">Ver</ion-button>
+				<ng-template #ocultar>
+					<ion-button fill="outline" size='small' color="normal" (click)="verdatos=!verdatos">Ocultar
+					</ion-button>
+				</ng-template>
+			</ion-item>
+			<ion-grid *ngIf="verdatos">
+				<ion-row>
+					<ion-col col-5>Fecha de nacimiento</ion-col>
+					<ion-col col-7>{{edad}}</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col col-5>Género</ion-col>
+					<ion-col col-7>{{datos.genero}}</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col col-5>Peso {{datos.peso}}kg</ion-col>
+					<ion-col col-7>Altura: {{datos.altura}} centimetros</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col col-5>Teléfono</ion-col>
+					<ion-col col-7>{{datos.telefono}}</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col col-5>Email</ion-col>
+					<ion-col col-7>{{datos.correo}}</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-card-content>
+	</ion-card>
+	<ion-list>
+		<ion-item>
+			<ion-button expand="full" (click)="modperfil()" fill="clear">
+				<ion-icon slot="start" name="paper"></ion-icon>
+				Editar perfil
+			</ion-button>
+		</ion-item>
+		<ion-item>
+			<ion-label>Cerrar sesion</ion-label>
+		</ion-item>
+	</ion-list>
+	<ion-button expand="full" (click)="modperfil()" fill="clear" color="normal">
+			<ion-icon slot="start" name="paper"></ion-icon>
+			Editar perfil
+		</ion-button>
 </ion-content>

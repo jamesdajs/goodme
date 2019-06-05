@@ -29,9 +29,9 @@ const routes: Routes = [
 
               },
 
-              { 
-                path: 'mod-perfil', 
-                loadChildren: '../mod-perfil/mod-perfil.module#ModPerfilPageModule' 
+              {
+                path: 'mod-perfil',
+                loadChildren: '../mod-perfil/mod-perfil.module#ModPerfilPageModule'
               },
             ]
         },
@@ -43,6 +43,9 @@ const routes: Routes = [
                 path: '',
                 loadChildren: '../tipo-ejercicios/tipo-ejercicios.module#TipoEjerciciosPageModule'
               },
+              { 
+                path: 'crear', 
+                loadChildren: '../crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule' },
             ]
         },
 

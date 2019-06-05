@@ -15,30 +15,30 @@ export class AuthFacebookProvider {
     ) {
 
     }
-
-    loginWithFacebook() {
-        return Observable.create(observer => {
+    datosusario={}
+    loginWithFacebook():Promise<any>{
+        return new Promise((resolve,reject) => {
             if (this.platform.is('cordova')) {
                 this.fb.login(['email', 'public_profile']).then(res => {
                     //alert(JSON.stringify(res))
                     const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-                    console.log(res)
+                    //console.log(res)
                     this.afAuth.auth.signInWithCredential(facebookCredential).then(user => {
-                        observer.next(user);
-                    }).catch(error => {
-                        observer.error(error);
-                    });
+                        resolve(user);
+                    })
                 }).catch((error) => {
-                    observer.error(error);
+                    reject(error);
 
                 });
             } else {
                 this.afAuth.auth
                     .signInWithPopup(new auth.FacebookAuthProvider())
-                    .then((res) => {
-                        observer.next(res);
+                    .then((res:any) => {
+                        this.datosusario=res.additionalUserInfo.profile
+                        this.datosusario["foto"]=res.user.photoURL
+                        resolve(this.datosusario);
                     }).catch(error => {
-                        observer.error(error);
+                        reject(error);
                     });
             }
         });

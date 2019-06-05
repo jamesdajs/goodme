@@ -37,7 +37,7 @@ ion-icon {
     height: 1em;
     }
     &[class*="custom-pesas"] {
-    mask-image: src("/icon/dumbbell.svg");
+    mask-image: url("/src/assets/icon/dumbbell.svg");
     }
     &[class*="custom-dieta"] {
     mask-image: src("/icon/covered-food-tray-on-a-hand-of-hotel-room-service.svg");
@@ -62,3 +62,7 @@ img {
          background-color: #ffffff00 !important; 
     }
 //selecion de imagenes
+.msgerr{
+    color: red;
+    font-size: 11px;
+}

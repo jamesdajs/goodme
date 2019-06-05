@@ -1,17 +1,19 @@
 
 import { Injectable } from '@angular/core';
 
-import { Cliente,firebaseConfig } from "../../app.config";
-import { AngularFirestore,
+import { Cliente, firebaseConfig } from "../../app.config";
+import {
+  AngularFirestore,
   AngularFirestoreCollection,
-  AngularFirestoreDocument 
+  AngularFirestoreDocument
 } from "angularfire2/firestore";
 import { Observable } from 'rxjs/Observable';
 
-import {AngularFireAuth} from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from 'angularfire2/storage';
 
 import { map } from "rxjs/operators";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //import * as firebase from "firebase";
 /*
@@ -26,14 +28,15 @@ export class UsuarioProvider {
 
   private clientedoc: AngularFirestoreDocument<Cliente>;
   constructor(
-    private db:AngularFirestore,
-    private store:AngularFireStorage,
-    private authfb:AngularFireAuth
-    ) {
+    private db: AngularFirestore,
+    private store: AngularFireStorage,
+    private authfb: AngularFireAuth,
+    private http: HttpClient
+  ) {
     console.log('Hello UsuarioProvider Provider');
     this.cliente = db.collection<Cliente>(firebaseConfig.cliente_endpoint);
   }
-  versihaysolicitud(idins){
+  /*versihaysolicitud(idins){
     let query=res=>res.where("idcliente","==",this.authfb.auth.currentUser.uid)
                       .where("idinstructor","==",idins)
                       .where("rol","==","cliente")
@@ -249,6 +252,69 @@ verSitienenDatos() {
         })
       })
     })
-}
+  }*/
+  urlInsert = "http://192.168.1.13/goodmeServe/public/usuarios"
+  urlSelect = "http://192.168.1.13/goodmeServe/public/usuarios/select"
+  urlUpdate = "http://192.168.1.13/goodmeServe/public/usuarios/modificar"
+  urlDelete = "http://192.168.1.13/goodmeServe/public/usuarios/eliminar"
+  urlsql = "http://192.168.1.13/goodmeServe/public/consultas/crear"
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'X-CSRF-TOKEN': "token",
+    'Authorization': "token"
+  })
 
+  guardarusuario(Datos) {
+    let sql = "INSERT into  usuarios (idfacebook,fullname,foto,correo) VALUES (?,?,?,?);SELECT LAST_INSERT_ID()"
+    let values = [Datos.id, Datos.name, Datos.foto, Datos.email]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  actualizarusuario(Datos) {
+    let sql = "update usuarios set fullname = ?,foto = ?,correo=? where idfacebook = ?"
+    let values = [Datos.name, Datos.foto, Datos.email, Datos.id]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  actualizarusuariodatosnormales(Datos, id) {
+    let sql = "update usuarios set fechanac = ?,peso = ?,altura=?,genero=?,telefono=? where idusuarios = ?"
+    let values = [Datos.fechanac, Datos.peso, Datos.altura, Datos.genero, Datos.telefono, id]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  crearOupdatedatosInstructor(Datos, id) {
+    let sql = `INSERT INTO datos_ins (iddatos_ins,descripcion,direccion, lat, lng,zoom)
+     VALUES(?, ?, ?,?,?,?) 
+     ON DUPLICATE KEY UPDATE descripcion=?,direccion=?, lat=?, lng=?,zoom=?`
+    let values = [
+      id, Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom,
+      Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom
+    ]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  listarusuarios() {
+    let sql = "select * from usuarios"
+    let values = []
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  verUsuarioIDfb(idfb): Promise<any> {
+    let sql = "select * from usuarios where idfacebook=?"
+    let values = [idfb]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  verUsuarioIDdbinstructor(id): Promise<any> {
+    let sql = "select * from usuarios,datos_ins where idusuarios=? and iddatos_ins=idusuarios"
+    let values = [id]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  consultas() {
+    let sql = "ALTER TABLE datos_ins ADD COLUMN direccion varchar(100) not null"
+    let values = []
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
 }

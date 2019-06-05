@@ -6,7 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ModPerfilPage } from './mod-perfil.page';
-
+import { FormBuilder} from '@angular/forms';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   {
     path: '',
@@ -19,7 +21,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ReactiveFormsModule
+  ],
+  providers:[
+    FormBuilder,
+    Geolocation
   ],
   declarations: [ModPerfilPage]
 })

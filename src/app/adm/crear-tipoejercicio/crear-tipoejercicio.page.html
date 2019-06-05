@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>crearTipoejercicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-grid>
+    <ion-row align-items-end>
+      <ion-col col-12>
+        <ion-item class="input" [formGroup]="myForm">
+          <ion-label  floating>Nombre del tipo</ion-label>
+          <ion-input  type="text"[(ngModel)]="nombre" formControlName="nombre" clearInput></ion-input>
+          
+        </ion-item>
+        <ion-item *ngIf="myForm.get('nombre').errors && myForm.get('nombre').dirty">
+          <p class="msgerr" *ngIf="myForm.get('nombre').hasError('required')">Campo requerido</p> 
+          <p class="msgerr" *ngIf="myForm.get('nombre').hasError('maxlength')">máximo de 50 digitos</p> 
+        </ion-item>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

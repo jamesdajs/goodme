@@ -28,6 +28,7 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -41,6 +42,7 @@ import { IonicStorageModule } from '@ionic/storage';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    HttpClientModule,
   ],
   providers: [
     StatusBar,
@@ -49,7 +51,8 @@ import { IonicStorageModule } from '@ionic/storage';
     AngularFireAuth,
     UsuarioProvider,
     AuthFacebookProvider,
-    Facebook
+    Facebook,
+
   ],
   bootstrap: [AppComponent]
 })
