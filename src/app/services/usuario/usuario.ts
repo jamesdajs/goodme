@@ -267,11 +267,11 @@ verSitienenDatos() {
   guardarusuario(Datos) {
     let sql = '', values = []
     if (Datos.correo) {
-      sql = "INSERT into  usuarios (idfacebook,fullname,foto,correo) VALUES (?,?,?,?);SELECT LAST_INSERT_ID()"
+      sql = "INSERT into  usuarios (idfacebook,fullname,foto,correo) VALUES (?,?,?,?)"
       values = [Datos.id, Datos.name, Datos.foto, Datos.email]
 
     } else {
-      sql = "INSERT into  usuarios (idfacebook,fullname,foto) VALUES (?,?,?,?);SELECT LAST_INSERT_ID()"
+      sql = "INSERT into  usuarios (idfacebook,fullname,foto) VALUES (?,?,?)"
       values = [Datos.id, Datos.name, Datos.foto]
     }
 
@@ -279,8 +279,16 @@ verSitienenDatos() {
       .toPromise()
   }
   actualizarusuario(Datos) {
-    let sql = "update usuarios set fullname = ?,foto = ?,correo=? where idfacebook = ?"
-    let values = [Datos.name, Datos.foto, Datos.email, Datos.id]
+    let sql = '', values = []
+    if (Datos.correo) {
+      sql = "update usuarios set fullname='?',foto=?,correo=? where idfacebook = ?"
+      values = [Datos.name, Datos.foto, Datos.email, Datos.id]
+
+    } else {
+      sql = "update usuarios set fullname='?',foto=? where idfacebook = ?"
+      values = [Datos.name, Datos.foto, Datos.id]
+    }
+
     return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
@@ -310,6 +318,12 @@ verSitienenDatos() {
   verUsuarioIDfb(idfb): Promise<any> {
     let sql = "select * from usuarios where idfacebook=?"
     let values = [idfb]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  verUsuarioIDdbalumno(id): Promise<any> {
+    let sql = "select * from usuarios where idusuarios=? "
+    let values = [id]
     return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }

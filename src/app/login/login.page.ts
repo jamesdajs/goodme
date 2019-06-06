@@ -79,13 +79,18 @@ export class LoginPage implements OnInit {
             .then(datas=>{
               //console.log(datas)
               resolve('datos creados correctos')
-            })
+            }).catch(err=>console.log(err)
+            )
           }else{
             this.user.guardarusuario(data)
             .then((datas) => {
-              this.storage.set('idusuario', datas);
-              console.log(datas)
-              resolve('datos creados correctos')
+              this.user.verUsuarioIDfb(data.id)
+              .then(newuser=>{
+                this.storage.set('rol', "alumno");
+                this.storage.set('idusuario', newuser[0].idusuarios);
+                //console.log(datas)
+                resolve('datos creados correctos')
+              }).catch(err=>console.log(err))
             })
           }
         })

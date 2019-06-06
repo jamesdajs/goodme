@@ -36,7 +36,11 @@ export class AuthFacebookProvider {
                     .then((res:any) => {
                         this.datosusario=res.additionalUserInfo.profile
                         this.datosusario["foto"]=res.user.photoURL
-                        resolve(this.datosusario);
+                        let datosprueva={
+                            id:1231233,name:'juan perez',foto:'nada'
+                        }
+                        //cambiar datosprueva o this.datosusario
+                        resolve(datosprueva);
                     }).catch(error => {
                         reject(error);
                     });

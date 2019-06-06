@@ -6,13 +6,13 @@
 
 <ion-content>
 
-	<ion-card color="carts">
+	<ion-card color="carts" *ngFor="let dato of datos">
 		<ion-card-content>
 			<ion-item>
 				<ion-avatar item-start>
 					<img [src]="datos.foto" class="foto" />
 				</ion-avatar>
-				<ion-label>{{datos.fullname}}</ion-label>
+				<ion-label>{{dato.fullname}}</ion-label>
 				
 
 
@@ -26,27 +26,31 @@
 			<ion-grid *ngIf="verdatos">
 				<ion-row>
 					<ion-col col-5>Fecha de nacimiento</ion-col>
-					<ion-col col-7>{{edad}}</ion-col>
+					<ion-col col-7>{{dato.fechanac}}</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-5>Género</ion-col>
-					<ion-col col-7>{{genero}}</ion-col>
+					<ion-col col-7>{{dato.genero}}</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-5>Peso {{datos.peso}}kg</ion-col>
-					<ion-col col-7>Altura: {{datos.altura}} cm</ion-col>
+					<ion-col col-7>Altura: {{dato.altura}} cm</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-5>Teléfono</ion-col>
-					<ion-col col-7>{{datos.telefono}}</ion-col>
+					<ion-col col-7>{{dato.telefono}}</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-5>Email</ion-col>
-					<ion-col col-7>{{datos.correo}}</ion-col>
+					<ion-col col-7>{{dato.correo}}</ion-col>
 				</ion-row>
 			</ion-grid>
 		</ion-card-content>
 	</ion-card>
+	<ion-card *ngIf="datos.length==0">
+		<ion-spinner name="lines"></ion-spinner>
+	</ion-card>
+
 	<ion-list>
 		<ion-item>
 			<ion-button expand="full" (click)="modperfil()" fill="clear">

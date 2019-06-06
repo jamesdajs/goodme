@@ -17,7 +17,8 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
     altura: '120',
     telefono: '',
     genero: 'h',
-    fechanac: '2019-01-01'
+    fechanac: '2019-01-01',
+    correo:""
 
   }
   datosins = {
@@ -52,10 +53,11 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
 
     this.myForm = this.formb.group({
       telefono: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(12)]],
-      fechanac:['', [Validators.required]],
-      peso:['', [Validators.required]],
-      altura:['', [Validators.required]],
-      genero:['', [Validators.required]]
+      fechanac: ['', [Validators.required]],
+      peso: ['', [Validators.required]],
+      altura: ['', [Validators.required]],
+      genero: ['', [Validators.required]],
+      correo:['', [Validators.required]],
     });
     this.myForm.setValue(this.datos)
     this.myFormins = this.formb.group({
@@ -65,12 +67,12 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
       lng: ['', [Validators.required]],
       zoom: ['', [Validators.required]],
     });
-    
+
     this.myFormins.setValue(this.datosins)
   }
 
   ngOnInit() {
-    
+
   }
   ngAfterViewInit() {
     console.log("despues de cargar vista")
@@ -86,22 +88,27 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
     toast.present();
   }
   guardar() {
-    //let loading=this.presentLoading('Guardando datos')
-    if (this.myForm.valid && this.myFormins.valid)
+    if (this.myForm.valid && this.myFormins.valid) {
+      let loading = this.presentLoading('Guardando datos')
       Promise.all([
         this.user.crearOupdatedatosInstructor(this.myFormins.value, this.id),
         this.user.actualizarusuariodatosnormales(this.myForm.value, this.id)
       ])
         .then(res => {
           console.log(res);
+          loading.then(load => load.dismiss())
+
           this.router.navigate(['/adm/perfil'])
 
         })
         .catch(err => {
           console.log(err);
 
+          loading.then(load => load.dismiss())
         })
+    }
     else this.presentToast("tiene que llenar todos los datos")
+    
   }
   async loadMap() {
     // This code is necessary for browser
@@ -131,9 +138,9 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
     map.addListener('click', function (event) {
       marker.setPosition(event.latLng)
       console.log(event)
-      _myFormins.get("lat").setValue(marker.getPosition().lat()) 
-      _myFormins.get("lng").setValue(marker.getPosition().lng()) ,
-      _myFormins.get("zoom").setValue(map.getZoom()) 
+      _myFormins.get("lat").setValue(marker.getPosition().lat())
+      _myFormins.get("lng").setValue(marker.getPosition().lng()),
+        _myFormins.get("zoom").setValue(map.getZoom())
       geocoder.geocode({
         'location': event.latLng
       }, function (results, status) {
@@ -141,7 +148,7 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
           if (results[0]) {
 
             //alert('place id: ' + results[0].place_id);
-      _myFormins.get("direccion").setValue(results[0]['formatted_address']) 
+            _myFormins.get("direccion").setValue(results[0]['formatted_address'])
 
 
           } else {
@@ -157,7 +164,7 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
     const loading = await this.loadingController.create({
       message: text,
     });
-    await loading.present();
+    await loading.present()
     return loading
   }
 }

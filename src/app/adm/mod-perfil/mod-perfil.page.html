@@ -51,6 +51,13 @@
 					<form [formGroup]="myForm">
 						<ion-item>
 							<ion-label position="floating">Teléfono</ion-label>
+							<ion-input formControlName='correo' type="tel"></ion-input>
+						</ion-item>
+						<ion-item *ngIf="myForm.get('correo').errors && myForm.get('correo').dirty">
+							<p class="msgerr" *ngIf="myForm.get('correo').hasError('correo')">Campo requerido</p>
+						</ion-item>
+						<ion-item>
+							<ion-label position="floating">Teléfono</ion-label>
 							<ion-input formControlName='telefono' type="tel"></ion-input>
 						</ion-item>
 

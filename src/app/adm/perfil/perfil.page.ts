@@ -9,17 +9,7 @@ import { UsuarioProvider } from 'src/app/services/usuario/usuario';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-  datos={
-    correo: "",
-    fullname: "",
-    foto:"",
-    peso:null,
-    altura:0,
-    telefono:0,
-    genero:null,
-    fechanac:null
-    
-  }
+  datos=[]
   genero="hombre"
   verdatos=true
   id
@@ -46,11 +36,12 @@ export class PerfilPage implements OnInit {
     this.router.navigate(["/adm/perfil/mod-perfil",this.datos])
   }
   cargardatos(id){
-    this.user.verUsuarioIDdbinstructor(id)
+    this.user.verUsuarioIDdbalumno(id)
     .then(datos=>{
       console.log(datos[0])
-      this.genero=datos[0].genero=='m'?'Mujer':'Hombre'
-      this.datos=datos[0]
+      this.genero=datos[0].genero!='h'?'Mujer':'Hombre'
+      
+        this.datos=datos
     })
     .catch(err=>console.log(err))
   }
