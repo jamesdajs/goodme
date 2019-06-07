@@ -10,10 +10,10 @@
 		<ion-card-content>
 			<ion-item>
 				<ion-avatar item-start>
-					<img [src]="datos.foto" class="foto" />
+					<img [src]="dato.foto" class="foto" />
 				</ion-avatar>
 				<ion-label>{{dato.fullname}}</ion-label>
-				
+
 
 
 				<ion-button *ngIf="!verdatos; else ocultar" fill="outline" size='small' color="normal"
@@ -33,7 +33,7 @@
 					<ion-col col-7>{{dato.genero}}</ion-col>
 				</ion-row>
 				<ion-row>
-					<ion-col col-5>Peso {{datos.peso}}kg</ion-col>
+					<ion-col col-5>Peso {{dato.peso}}kg</ion-col>
 					<ion-col col-7>Altura: {{dato.altura}} cm</ion-col>
 				</ion-row>
 				<ion-row>
@@ -47,7 +47,7 @@
 			</ion-grid>
 		</ion-card-content>
 	</ion-card>
-	<ion-card *ngIf="datos.length==0">
+	<ion-card *ngIf="datos.length==0" class="ion-text-center">
 		<ion-spinner name="lines"></ion-spinner>
 	</ion-card>
 
@@ -58,12 +58,16 @@
 				Editar perfil
 			</ion-button>
 		</ion-item>
-		<ion-item>
+		<ion-item (click)="presentAlertConfirm()">
 			<ion-label>Cerrar sesion</ion-label>
 		</ion-item>
 	</ion-list>
 	<ion-button expand="full" (click)="modperfil()" fill="clear" color="normal">
-			<ion-icon slot="start" name="paper"></ion-icon>
-			Editar perfil
-		</ion-button>
+		<ion-icon slot="start" name="paper"></ion-icon>
+		Editar perfil
+	</ion-button>
+	<ion-button expand="full" (click)="presentAlertConfirm()" fill="clear" color="normal">
+		<ion-icon slot="start" name=""></ion-icon>
+		Cerrar sesion
+	</ion-button>
 </ion-content>

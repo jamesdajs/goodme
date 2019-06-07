@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title> nombre</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="crear()">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content >
+      <ion-list #lista>
+        <div *ngIf="ejercicios.length!=0;else elseBlock">
+            <ion-item-sliding *ngFor="let item of ejercicios">
+              <ion-item color="carts"  (click)="verDetalleEjercicio(item)">
+                <ion-thumbnail item-start>
+                  <img *ngIf="item.imagenes.length!=0 ; else elseBlock" [src]="item.imagenes[0].url" />
+                  <ng-template #elseBlock>
+                      <img  src="../../assets/imgs/defecto.jpeg" />
+                  </ng-template>
+                </ion-thumbnail>
+                <ion-label>
+                  
+                  <h2>{{item.nombre}}</h2>
+                  <p>{{item.tipo}}</p>
+                  <p>{{item.descorta}}</p>
+                </ion-label>
+                <ion-button >
+                  <ion-icon slot="icon-only" name="ios-arrow-forward"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item-options >
+                  <ion-button (click)="editar(item)">
+                    <ion-icon slot="icon-only" name="paper"></ion-icon>
+                  </ion-button>
+ 
+                  <!--
+                  <button ion-button color="tabss" (click)="eliminar(item.key)" icon-start>
+                    <ion-icon name="trash"></ion-icon>
+                    Eliminar
+                  </button>
+                  -->
+                  
+              </ion-item-options>
+            </ion-item-sliding>
+        </div>
+        <ng-template #elseBlock>
+            <ion-item color="carts">
+              <ion-label>
+                
+                <h2>No tiene ningun ejercicio</h2>
+              </ion-label>
+            </ion-item>
+        </ng-template>
+      </ion-list>
+    </ion-content>

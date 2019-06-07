@@ -97,25 +97,32 @@ export class RutinaProvider {
     'X-CSRF-TOKEN':"token",
     'Authorization':"token"
   })
-  
-    guardarusuario(Datos){
-      let sql="INSERT into  usuarios (idfacebook,fullname,foto,correo) VALUES (?,?,?,?);SELECT LAST_INSERT_ID()"
-      let values=[Datos.id,Datos.name,Datos.foto,Datos.email]
-      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+    //tipo ejercicios
+    crearTipoEjercicio(idusu,nombre):Promise<void>{
+      let sql="INSERT into  tipo_ejercicios (idusuario,nombre) VALUES (?,?)"
+      let values=[idusu,nombre]
+      return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
-    actualizarusuario(Datos){
-      let sql="update usuarios set fullname = ?,foto = ?,correo=? where idfacebook = ?"
-      let values=[Datos.name,Datos.foto,Datos.email,Datos.id]
+    modTipoEjercicio(nombre,id){
+      let sql="update tipo_ejercicios set nombre = ? where idtipo_ejercicios = ?"
+      let values=[nombre,id]
       return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
-    listarusuarios(){
-      let sql="select * from usuarios"
-      let values=[]
-      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+    eliminarTipoEjercicio(idtipo){
+      let sql="DELETE FROM tipo_ejercicios WHERE idtipo_ejercicios = ?"
+      let values=[idtipo]
+      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
+    listarTipoEjercicio(idusu){
+      let sql="select * from tipo_ejercicios where idusuario=?"
+      let values=[idusu]
+      return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+
     verUsuarioIDfb(idfb):Promise<any>{
       let sql="select * from usuarios where idfacebook=?"
       let values=[idfb]

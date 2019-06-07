@@ -5,7 +5,6 @@ const routes: Routes = [
   { path: '', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'adm', loadChildren: './adm/tabs/tabs.module#TabsPageModule' },
   { path: 'cli', loadChildren: './cli/tabs/tabs.module#TabsPageModule' },
-  { path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
   //{ path: 'crear-tipoejercicio', loadChildren: './adm/crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule' },
 
 ];

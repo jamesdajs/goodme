@@ -24,7 +24,14 @@ export class AuthFacebookProvider {
                     const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
                     //console.log(res)
                     this.afAuth.auth.signInWithCredential(facebookCredential).then(user => {
-                        resolve(user);
+                        let datos={
+                            name:user.displayName,
+                            foto:user.photoURL,
+                            id:res.authResponse.userID
+                        }
+                        if(user.email) datos['correo']=user.email
+
+                        resolve(datos);
                     })
                 }).catch((error) => {
                     reject(error);
@@ -40,7 +47,7 @@ export class AuthFacebookProvider {
                             id:1231233,name:'juan perez',foto:'nada'
                         }
                         //cambiar datosprueva o this.datosusario
-                        resolve(datosprueva);
+                        resolve(this.datosusario);
                     }).catch(error => {
                         reject(error);
                     });

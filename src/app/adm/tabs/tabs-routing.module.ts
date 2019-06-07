@@ -43,9 +43,25 @@ const routes: Routes = [
                 path: '',
                 loadChildren: '../tipo-ejercicios/tipo-ejercicios.module#TipoEjerciciosPageModule'
               },
-              { 
-                path: 'crear', 
-                loadChildren: '../crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule' },
+              {
+                path: 'crear',
+                loadChildren: '../crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule'
+              },
+
+              {
+                path: 'ejercicios',
+                children: [
+                  {
+                    path: '',
+                    loadChildren: '../ejercicios/ejercicios/ejercicios.module#EjerciciosPageModule'
+                  },
+
+                  {
+                    path: 'crear',
+                    loadChildren: '../ejercicios/crear/crear.module#CrearPageModule'
+                  },
+                ]
+              },
             ]
         },
 
