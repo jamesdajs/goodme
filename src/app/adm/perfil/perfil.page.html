@@ -6,13 +6,15 @@
 
 <ion-content>
 
-	<ion-card color="carts">
+	<ion-card color="carts" *ngFor="let dato of datos">
 		<ion-card-content>
 			<ion-item>
 				<ion-avatar item-start>
-					<img [src]="datos.foto" class="foto" />
+					<img [src]="dato.foto" class="foto" />
 				</ion-avatar>
+
 				<ion-label>{{datos.fullname}}</ion-label>
+
 				<ion-button *ngIf="!verdatos; else ocultar" fill="outline" size='small' color="normal"
 					(click)="verdatos=!verdatos">Ver</ion-button>
 				<ng-template #ocultar>
@@ -23,6 +25,7 @@
 			<ion-grid *ngIf="verdatos">
 				<ion-row>
 					<ion-col col-5>Fecha de nacimiento</ion-col>
+
 					<ion-col col-7></ion-col>
 				</ion-row>
 				<ion-row>
@@ -40,10 +43,15 @@
 				<ion-row>
 					<ion-col col-5>Email</ion-col>
 					<ion-col col-7></ion-col>
+
 				</ion-row>
 			</ion-grid>
 		</ion-card-content>
 	</ion-card>
+	<ion-card *ngIf="datos.length==0" class="ion-text-center">
+		<ion-spinner name="lines"></ion-spinner>
+	</ion-card>
+
 	<ion-list>
 		<ion-item>
 			<ion-button expand="full" (click)="modperfil()" fill="clear">
@@ -51,12 +59,16 @@
 				Editar perfil
 			</ion-button>
 		</ion-item>
-		<ion-item>
+		<ion-item (click)="presentAlertConfirm()">
 			<ion-label>Cerrar sesion</ion-label>
 		</ion-item>
 	</ion-list>
 	<ion-button expand="full" (click)="modperfil()" fill="clear" color="normal">
-			<ion-icon slot="start" name="paper"></ion-icon>
-			Editar perfil
-		</ion-button>
+		<ion-icon slot="start" name="paper"></ion-icon>
+		Editar perfil
+	</ion-button>
+	<ion-button expand="full" (click)="presentAlertConfirm()" fill="clear" color="normal">
+		<ion-icon slot="start" name=""></ion-icon>
+		Cerrar sesion
+	</ion-button>
 </ion-content>

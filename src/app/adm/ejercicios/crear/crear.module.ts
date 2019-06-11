@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CrearTipoejercicioPage } from './crear-tipoejercicio.page';
+import { CrearPage } from './crear.page';
+//imporstpara fotos
 
 const routes: Routes = [
   {
     path: '',
-    component: CrearTipoejercicioPage
+    component: CrearPage
   }
 ];
 
@@ -19,9 +20,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule
+    RouterModule.forChild(routes)
   ],
-  declarations: [CrearTipoejercicioPage]
+  declarations: [CrearPage]
 })
-export class CrearTipoejercicioPageModule {}
+export class CrearPageModule {}

@@ -29,6 +29,10 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { File } from '@ionic-native/file/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -52,6 +56,9 @@ import { HttpClientModule } from '@angular/common/http';
     UsuarioProvider,
     AuthFacebookProvider,
     Facebook,
+    ImagePicker,
+    Crop,
+    File
 
   ],
   bootstrap: [AppComponent]

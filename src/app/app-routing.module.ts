@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: 'adm', loadChildren: './adm/tabs/tabs.module#TabsPageModule' },
   { path: 'cli', loadChildren: './cli/tabs/tabs.module#TabsPageModule' },
   { path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
-  { path: 'alumnos', loadChildren: './adm/alumnos/alumnos.module#AlumnosPageModule' },  { path: 'alumnosdetalle', loadChildren: './adm/alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule' },
+  { path: 'alumnos', loadChildren: './adm/alumnos/alumnos.module#AlumnosPageModule' },
+  { path: 'alumnosdetalle', loadChildren: './adm/alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule' },
   { path: 'miscursos', loadChildren: './adm/miscursos/miscursos.module#MiscursosPageModule' },
   { path: 'inicio', loadChildren: './cli/inicio/inicio.module#InicioPageModule' },
   { path: 'mycourses', loadChildren: './cli/mycourses/mycourses.module#MycoursesPageModule' },
@@ -16,7 +17,6 @@ const routes: Routes = [
   { path: 'detallepago', loadChildren: './cli/detallepago/detallepago.module#DetallepagoPageModule' },
   { path: 'miperfil', loadChildren: './cli/miperfil/miperfil.module#MiperfilPageModule' },
   { path: 'ver-instructor', loadChildren: './cli/ver-instructor/ver-instructor.module#VerInstructorPageModule' },
-
  
   //{ path: 'crear-tipoejercicio', loadChildren: './adm/crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule' },
 
@@ -28,3 +28,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
