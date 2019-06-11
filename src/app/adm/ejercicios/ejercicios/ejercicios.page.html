@@ -15,19 +15,16 @@
   <ion-content >
       <ion-list #lista>
         <div *ngIf="ejercicios.length!=0;else elseBlock">
-            <ion-item-sliding *ngFor="let item of ejercicios">
+            <ion-item-sliding *ngFor="let item of ejercicios | async">
               <ion-item color="carts"  (click)="verDetalleEjercicio(item)">
                 <ion-thumbnail item-start>
-                  <img *ngIf="item.imagenes.length!=0 ; else elseBlock" [src]="item.imagenes[0].url" />
-                  <ng-template #elseBlock>
-                      <img  src="../../assets/imgs/defecto.jpeg" />
-                  </ng-template>
+                  <img  src="item" />
+     
                 </ion-thumbnail>
                 <ion-label>
                   
                   <h2>{{item.nombre}}</h2>
-                  <p>{{item.tipo}}</p>
-                  <p>{{item.descorta}}</p>
+                  <p>{{item.descripcion}}</p>
                 </ion-label>
                 <ion-button >
                   <ion-icon slot="icon-only" name="ios-arrow-forward"></ion-icon>

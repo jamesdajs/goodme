@@ -1,4 +1,4 @@
-//import { HttpClient } from '@angular/common/http';
+4//import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "angularfire2/firestore";
 import { Observable } from 'rxjs/Observable';
@@ -88,10 +88,11 @@ export class RutinaProvider {
                       .where("idejercicio","==",keyejer)
     return this.getcollitemquery("rutina_ejer",query)
   }*/
-  urlInsert="http://192.168.1.13/goodmeServe/public/usuarios"
-  urlSelect="http://192.168.1.13/goodmeServe/public/usuarios/select"
-  urlUpdate="http://192.168.1.13/goodmeServe/public/usuarios/modificar"
-  urlDelete="http://192.168.1.13/goodmeServe/public/usuarios/eliminar"
+  url='http://localhost/goodmeServe/public/'
+  urlInsert=this.url+"usuarios"
+  urlSelect=this.url+"usuarios/select"
+  urlUpdate=this.url+"usuarios/modificar"
+  urlDelete=this.url+"usuarios/eliminar"
   headers= new HttpHeaders({
     'Content-Type':  'application/json',
     'X-CSRF-TOKEN':"token",
@@ -122,6 +123,44 @@ export class RutinaProvider {
       return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
+    //ejercicicos
+    verUltimoIdEjercicio(idtipoejer){
+      let sql='SELECT idejercicios FROM `ejercicios` WHERE id_tipoejercicio=? ORDER BY idejercicios DESC LIMIT 1'
+      let values=[idtipoejer]
+      return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    crearEjercicio(idtipo,datos):Promise<void>{
+      let sql="INSERT into  ejercicios (id_tipoejercicio,nombre,descripcion,instrucciones,linkyoutube) VALUES (?,?,?,?,?)"
+      let values=[idtipo,datos.nombre,datos.descripcion,datos.instrucciones,datos.linkyoutube]
+      return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    crearImagenEjercicio(idejer,datos):Promise<void>{
+      let sql="INSERT into  fotos_ejercicios (nombre,url,id_ejercicio) VALUES (?,?,?)"
+      let values=[datos.nombre,datos.url,idejer]
+      return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    modEjercicio(nombre,id){
+      let sql="update tipo_ejercicios set nombre = ? where idtipo_ejercicios = ?"
+      let values=[nombre,id]
+      return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    eliminarEjercicio(idtipo){
+      let sql="DELETE FROM tipo_ejercicios WHERE idtipo_ejercicios = ?"
+      let values=[idtipo]
+      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    listarEjercicio(idtipo){
+      let sql="select * from ejercicios where id_tipoejercicio=?"
+      let values=[idtipo]
+      return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+    }
+    //ds
+
 
     verUsuarioIDfb(idfb):Promise<any>{
       let sql="select * from usuarios where idfacebook=?"

@@ -253,11 +253,11 @@ verSitienenDatos() {
       })
     })
   }*/
-  urlInsert = "http://192.168.1.13/goodmeServe/public/usuarios"
-  urlSelect = "http://192.168.1.13/goodmeServe/public/usuarios/select"
-  urlUpdate = "http://192.168.1.13/goodmeServe/public/usuarios/modificar"
-  urlDelete = "http://192.168.1.13/goodmeServe/public/usuarios/eliminar"
-  urlsql = "http://192.168.1.13/goodmeServe/public/consultas/crear"
+  urlInsert = "http://localhost/goodmeServe/public/usuarios"
+  urlSelect = "http://localhost/goodmeServe/public/usuarios/select"
+  urlUpdate = "http://localhost/goodmeServe/public/usuarios/modificar"
+  urlDelete = "http://localhost/goodmeServe/public/usuarios/eliminar"
+  urlsql = "http://localhost/goodmeServe/public/consultas/crear"
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'X-CSRF-TOKEN': "token",
