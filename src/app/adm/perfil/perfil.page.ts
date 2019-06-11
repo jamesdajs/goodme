@@ -37,6 +37,16 @@ export class PerfilPage implements OnInit {
   modperfil() {
     this.router.navigate(["/adm/perfil/mod-perfil", this.datos[0]])
   }
+
+  cargardatos1(id){
+    this.user.verUsuarioIDdbinstructor(id)
+    .then(datos=>{
+      console.log(datos[0])
+     //s this.genero=datos[0].genero=='m'?'Mujer':'Hombre'
+      this.datos=datos[0]
+    })
+    .catch(err=>console.log(err))
+
   cargardatos(id) {
     this.user.verUsuarioIDdbalumno(id)
       .then(datos => {

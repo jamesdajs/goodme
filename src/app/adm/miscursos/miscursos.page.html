@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Mis Cursos</ion-title>
+        <ion-buttons slot="secondary">
+            <ion-button fill="clear" (click)=presentToastWithOptions()>
+              <ion-icon slot="start" name="information-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+      </ion-toolbar>
+      <ion-segment  [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+        <ion-segment-button value="first">
+            <ion-icon name="ios-list"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value="second">
+              <ion-icon name="ios-apps"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
+        <ion-slide value="first"> 
+            <ion-card> 
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img class="img-alumno" src="../../../assets/imgs/defecto2.jpeg">
+                  </ion-avatar>
+                  <ion-label class="label-name-post">p.nombre</ion-label>
+                  <ion-button fill="clear" (click)="opciones()">
+                      <ion-icon name="md-more"></ion-icon>
+                  </ion-button>
+                </ion-item>
+                <div class="ion-no-padding">
+                  <ion-slides pager >
+                      <ion-slide >
+                          <img src="../../../assets/imgs/defecto.jpeg" >
+                      </ion-slide>
+                  </ion-slides>
+                </div>
+                <ion-card-header class="padding-post-detail-title">
+                  <ion-card-title>Title</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="padding-post-detail">
+                  Awesome content Awesome content Awesome contentAwesome
+                  Awesome content contentAwesome content Awesome content
+               
+                <ion-item class="ion-no-padding">
+                  <ion-label>Duración 2 meses 13 Semanas</ion-label>
+                  <ion-label class="costo-post">Costo 10 USD</ion-label>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>          
+        </ion-slide>
+        <ion-slide value="second">
+            <ion-grid class="ion-no-padding">
+                <ion-row>
+                  <ion-col col-4>
+                    <ion-slides pager class="post-perfil" >
+                        <ion-slide >
+                            <img src="../../../assets/imgs/defecto.jpeg" (click)="opciones()">
+                        </ion-slide>
+                    </ion-slides>
+                  </ion-col>
+                  <ion-col col-4>
+                    <ion-slides pager class="post-perfil" >
+                        <ion-slide >
+                            <img src="../../../assets/imgs/defecto2.jpeg" (click)="opciones()">
+                        </ion-slide>
+                    </ion-slides>
+                  </ion-col>
+                  <ion-col col-4>
+                      <ion-slides pager class="post-perfil" >
+                          <ion-slide >
+                              <img src="../../../assets/imgs/defecto.jpeg" (click)="opciones()">
+                          </ion-slide>
+                      </ion-slides>
+                    </ion-col>
+                </ion-row>
+              </ion-grid>
+        </ion-slide>  
+      </ion-slides>
+</ion-content>

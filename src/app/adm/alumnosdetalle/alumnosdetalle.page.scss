@@ -1,0 +1,33 @@
+ion-list{
+    width: 100% !important;
+}
+.foto-perfil{
+    text-align: center;
+}
+.foto-content{
+    margin: 0 auto;
+}
+
+#sidenav {
+    ion-item-group[submenu] {
+      overflow: hidden;
+      display: block;
+      height: 0;
+      transition: height .3s linear;
+      &.visible {
+          height: inherit;
+          // this is just sample value, calculate how much space you need for your menu items
+      }
+    }
+  }
+
+ .img-ejercicios{
+    height: 100% !important;
+ }
+ .label-ejercicios{
+     margin-left: 10px ;
+ }
+ .img-foto-usu{
+     width: 20px !important;
+     height: 20px !important;
+ }
