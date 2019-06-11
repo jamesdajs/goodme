@@ -269,7 +269,6 @@ verSitienenDatos() {
     if (Datos.correo) {
       sql = "INSERT into  usuarios (idfacebook,fullname,foto,correo) VALUES (?,?,?,?)"
       values = [Datos.id, Datos.name, Datos.foto, Datos.email]
-
     } else {
       sql = "INSERT into  usuarios (idfacebook,fullname,foto) VALUES (?,?,?)"
       values = [Datos.id, Datos.name, Datos.foto]

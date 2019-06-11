@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Curso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding" full-screem [scrollEvents]="true" (ionScroll)="onScroll($event)">
+  <div>
+    <ion-slides pager>
+        <ion-slide>
+          <img src="../../../assets/imgs/defecto2.jpeg" alt="">
+        </ion-slide>
+      </ion-slides>
+    </div> 
+      <ion-card-header >
+          <ion-button expand="block" color="secondary" fill="outline">
+              Suscribirme | 10 USD
+            </ion-button> 
+        <ion-card-title>Awesome Title</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content >
+        Awesome content Awesome content Awesome contentAwesome
+        Awesome content contentAwesome content Awesome content
+      </ion-card-content>
+      <ion-item>
+        <ion-label>Duración 2 meses 13 Semanas</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Costo 10 USD</ion-label>
+      </ion-item>
+      <ion-item (click)="verinstructor(item.idcliente)">
+          <ion-avatar item-start>
+              <img src="../../../assets/imgs/defecto2.jpeg">
+            </ion-avatar>
+            <ion-label class="name-instructor">Luis Fernando Huanca</ion-label>
+            <ion-icon slot="end" name="md-arrow-dropright"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label> 60269038</ion-label>
+        <ion-icon slot="end" name="logo-whatsapp"></ion-icon>
+      </ion-item>
+</ion-content>
