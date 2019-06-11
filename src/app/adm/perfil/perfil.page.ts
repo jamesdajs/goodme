@@ -49,7 +49,7 @@ export class PerfilPage implements OnInit {
     this.user.verUsuarioIDdbinstructor(id)
     .then(datos=>{
       console.log(datos[0])
-      this.genero=datos[0].genero=='m'?'Mujer':'Hombre'
+     //s this.genero=datos[0].genero=='m'?'Mujer':'Hombre'
       this.datos=datos[0]
     })
     .catch(err=>console.log(err))

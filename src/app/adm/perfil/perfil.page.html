@@ -13,9 +13,6 @@
 					<img [src]="datos.foto" class="foto" />
 				</ion-avatar>
 				<ion-label>{{datos.fullname}}</ion-label>
-				
-
-
 				<ion-button *ngIf="!verdatos; else ocultar" fill="outline" size='small' color="normal"
 					(click)="verdatos=!verdatos">Ver</ion-button>
 				<ng-template #ocultar>
@@ -26,23 +23,23 @@
 			<ion-grid *ngIf="verdatos">
 				<ion-row>
 					<ion-col col-5>Fecha de nacimiento</ion-col>
-					<ion-col col-7>{{edad}}</ion-col>
+					<ion-col col-7></ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-5>Género</ion-col>
-					<ion-col col-7>{{genero}}</ion-col>
+					<ion-col col-7></ion-col>
 				</ion-row>
 				<ion-row>
-					<ion-col col-5>Peso {{datos.peso}}kg</ion-col>
-					<ion-col col-7>Altura: {{datos.altura}} cm</ion-col>
+					<ion-col col-5>Peso kg</ion-col>
+					<ion-col col-7>Altura:  cm</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-5>Teléfono</ion-col>
-					<ion-col col-7>{{datos.telefono}}</ion-col>
+					<ion-col col-7></ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-5>Email</ion-col>
-					<ion-col col-7>{{datos.correo}}</ion-col>
+					<ion-col col-7></ion-col>
 				</ion-row>
 			</ion-grid>
 		</ion-card-content>
