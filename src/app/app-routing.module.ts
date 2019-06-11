@@ -5,7 +5,7 @@ const routes: Routes = [
   { path: '', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'adm', loadChildren: './adm/tabs/tabs.module#TabsPageModule' },
   { path: 'cli', loadChildren: './cli/tabs/tabs.module#TabsPageModule' },
-  { path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
+  //{ path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
   { path: 'alumnos', loadChildren: './adm/alumnos/alumnos.module#AlumnosPageModule' },
   { path: 'alumnosdetalle', loadChildren: './adm/alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule' },
   { path: 'miscursos', loadChildren: './adm/miscursos/miscursos.module#MiscursosPageModule' },
