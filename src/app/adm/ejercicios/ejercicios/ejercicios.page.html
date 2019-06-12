@@ -14,34 +14,32 @@
 
   <ion-content >
       <ion-list #lista>
-        <div *ngIf="ejercicios.length!=0;else elseBlock">
-            <ion-item-sliding *ngFor="let item of ejercicios | async">
-              <ion-item color="carts"  (click)="verDetalleEjercicio(item)">
-                <ion-thumbnail item-start>
-                  <img  src="item" />
+        <div >
+            <ion-item-sliding *ngFor="let item of ejercicios; let i=index ">
+                
+              <ion-item color="light"  (click)="verDetalleEjercicio(item)">
+                <ion-thumbnail slot="start">
+                  <img  [src]="item.miniatura" />
      
                 </ion-thumbnail>
                 <ion-label>
                   
                   <h2>{{item.nombre}}</h2>
-                  <p>{{item.descripcion}}</p>
+                  {{item.descripcion}}
                 </ion-label>
-                <ion-button >
+                <ion-button fill="clear">
                   <ion-icon slot="icon-only" name="ios-arrow-forward"></ion-icon>
                 </ion-button>
               </ion-item>
-              <ion-item-options >
-                  <ion-button (click)="editar(item)">
-                    <ion-icon slot="icon-only" name="paper"></ion-icon>
-                  </ion-button>
- 
-                  <!--
-                  <button ion-button color="tabss" (click)="eliminar(item.key)" icon-start>
-                    <ion-icon name="trash"></ion-icon>
-                    Eliminar
-                  </button>
-                  -->
-                  
+              <ion-item-options side="end">
+                <ion-item-option  (click)="modificar(item)">
+                  <ion-icon name="paper"> </ion-icon>
+
+                </ion-item-option>
+                <ion-item-option  (click)="eliminar(item,i)">
+                  <ion-icon name="trash"> </ion-icon>
+
+                </ion-item-option>
               </ion-item-options>
             </ion-item-sliding>
         </div>
