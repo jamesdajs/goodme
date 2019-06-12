@@ -1,5 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vermicurso',
@@ -25,7 +26,7 @@ export class VermicursoPage implements OnInit {
       title: "Thrid Slide"
     }
   ];
-  constructor() { }
+  constructor(private router:Router) { }
 
    //----------------funciones tab slide------------------
    onSegmentChanged(segmentButton) {
@@ -50,6 +51,10 @@ export class VermicursoPage implements OnInit {
      this.showSubmenu = !this.showSubmenu;
    }
   ngOnInit() {
+  }
+
+  verejercicio(){
+    this.router.navigate(['/cli/mis-cursos/vermicurso/verejercicio'])
   }
 
 }

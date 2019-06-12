@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vercurso',
@@ -8,7 +9,7 @@ import { ScrollDetail } from '@ionic/core';
 })
 export class VercursoPage implements OnInit {
 
-  constructor() { }
+  constructor(private routes:Router) { }
   showToolbar = false;
   onScroll($event: CustomEvent<ScrollDetail>) {
     if ($event && $event.detail && $event.detail.scrollTop) {
@@ -18,6 +19,13 @@ export class VercursoPage implements OnInit {
     }
 
   ngOnInit() {
+  }
+  detallepago(){
+    this.routes.navigate(['/cli/inicio/vercurso/detallepago'])
+  }
+
+  verinstructor(){
+    this.routes.navigate(['/cli/inicio/vercurso/verinstructor'])
   }
 
 }
