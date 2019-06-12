@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioPage implements OnInit {
 
-  constructor() { }
+  constructor(private routes:Router) { }
 
   ngOnInit() {
   }
+
+  vercurso(){
+    this.routes.navigate(['/cli/inicio/vercurso'])
+  }
+
 
 }

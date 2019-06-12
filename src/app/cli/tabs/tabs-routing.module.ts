@@ -15,24 +15,84 @@ const routes: Routes = [
               {
                 path: '',
                 loadChildren: './../datos-personales/datos-personales.module#DatosPersonalesPageModule'
-                
+
               }
             ]
         },
         {
+          path: 'inicio',
+          children: [
+            {
+              path: "",
+              loadChildren: '../inicio/inicio.module#InicioPageModule'
+            },
+            {
+              path: 'vercurso',
+              children: [
+
+                {
+                  path: '',
+                  loadChildren: '../vercurso/vercurso.module#VercursoPageModule'
+                },
+                {
+                  path: 'detallepago',
+                  loadChildren: '../detallepago/detallepago.module#DetallepagoPageModule'
+                },
+                {
+                  path: 'verinstructor',
+                  loadChildren: '../ver-instructor/ver-instructor.module#VerInstructorPageModule'
+                },
+
+              ]
+            },
+            {
+              path: '',
+              redirectTo: '/cli/inicio',
+              pathMatch: 'full'
+            }
+          ]
+        },
+        {
+          path: 'mis-cursos',
+          children: [
+            {
+              path: '',
+              loadChildren: '../mycourses/mycourses.module#MycoursesPageModule'
+            },
+            {
+              path: 'vermicurso',
+              children: [
+                {
+                  path: '',
+                  loadChildren: '../vermicurso/vermicurso.module#VermicursoPageModule'
+                },
+                {
+                  path: 'verejercicio',
+                  loadChildren: '../verejercicio/verejercicio.module#VerejercicioPageModule'
+                },
+
+              ]
+
+            },
+
+          ]
+        },
+        {
+          path: 'miperfil',
+          children: [
+            {
+              path: '',
+              loadChildren: '../miperfil/miperfil.module#MiperfilPageModule'
+            },
+          ]
+        },
+        {
           path: '',
-          redirectTo: '/cli/datos-personales',
+          redirectTo: '/cli/inicio',
           pathMatch: 'full'
         }
       ]
-  },
-  {
-    path: '',
-    redirectTo: '/cli/datos-personales',
-    pathMatch: 'full'
-  }
-];
-
+  }]
 @NgModule({
   imports:
     [
@@ -43,4 +103,4 @@ const routes: Routes = [
       RouterModule
     ]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

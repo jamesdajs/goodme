@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-mycourses',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MycoursesPage implements OnInit {
 
-  constructor() { }
+  constructor(private routes:Router) { }
 
   ngOnInit() {
+  }
+
+  vermicurso(){
+    this.routes.navigate(['/cli/mis-cursos/vermicurso'])
   }
 
 }

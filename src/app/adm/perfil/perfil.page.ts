@@ -72,4 +72,14 @@ export class PerfilPage implements OnInit {
 
     await alert.present();
   }
+  changeAlumno(){
+    this.storage.set('rol', "alumno")
+    .then(()=>{
+      return this.storage.get('rol')
+    })
+    .then(rol=>{
+      console.log("rol before change:"+rol)
+      this.router.navigate(['/cli'])
+      }) 
+  }
 }
