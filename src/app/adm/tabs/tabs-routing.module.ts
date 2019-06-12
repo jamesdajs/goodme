@@ -64,6 +64,11 @@ const routes: Routes = [
                     path: 'modificar',
                     loadChildren: '../ejercicios/modificar/modificar.module#ModificarPageModule'
                   },
+                  {
+                    path: 'detalle',
+                    loadChildren: './adm/ejercicios/detalle/detalle.module#DetallePageModule'
+                  },
+
 
                 ]
               },
