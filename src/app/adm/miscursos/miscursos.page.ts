@@ -1,5 +1,6 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import { IonSlides,ActionSheetController,ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-miscursos',
@@ -24,7 +25,8 @@ export class MiscursosPage implements OnInit {
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
-    public toastCtrl:ToastController
+    public toastCtrl:ToastController,
+    private routes:Router
   ) { }
 
   //----------------funciones tab slide------------------
@@ -106,4 +108,8 @@ export class MiscursosPage implements OnInit {
     }
     //-------------END FUNCTION TOAST--------------
 
+    //-------------------FUNCION CREAR CURSO------------
+    crearcurso(){
+      this.routes.navigate(['/adm/cursos/crearcurso'])
+    }
 }

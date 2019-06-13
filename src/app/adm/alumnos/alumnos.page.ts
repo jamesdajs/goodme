@@ -12,8 +12,11 @@ export class AlumnosPage implements OnInit {
 
   ngOnInit() {
   }
-
  veralumno(){
    this.routes.navigate(['/adm/misalumnos/alumnodetalle'])
+ }
+  
+ listaralumnos(){
+ 
  }
 }

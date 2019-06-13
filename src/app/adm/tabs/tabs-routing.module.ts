@@ -15,7 +15,12 @@ const routes: Routes = [
               {
                 path: '',
                 loadChildren: '../miscursos/miscursos.module#MiscursosPageModule'
-              }
+              },
+              {
+                path: 'crearcurso',
+                loadChildren: '../crearcurso/crearcurso.module#CrearcursoPageModule'
+              },
+
             ]
         },
         {

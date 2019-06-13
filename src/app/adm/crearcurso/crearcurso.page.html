@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-title>Crear Curso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid no-padding>
+        <ion-row align-items-center>
+          <ion-col >
+                <div class="imagen"(click)="openImagePickerCrop()" *ngIf="imgCropUrl.length==0">
+                  <ion-icon  name="camera"></ion-icon>
+                </div>
+              <ion-slides pager *ngIf="imgCropUrl.length!=0">
+                  <ion-slide *ngFor="let imagen of imgCropUrl">
+                      <img [src]="imagen.base64" (click)="verimage(imagen.url)"/>
+                  </ion-slide>
+            </ion-slides>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+</ion-content>

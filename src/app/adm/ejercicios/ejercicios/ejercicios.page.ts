@@ -16,7 +16,6 @@ export class EjerciciosPage implements OnInit {
     idtipo_ejercicios: '',
     nombre: '',
     idusuario: ''
-
   }
   constructor(
     private Aroute: ActivatedRoute,

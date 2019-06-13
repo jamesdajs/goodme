@@ -16,6 +16,7 @@ export class InicioPage implements OnInit {
   vercurso(){
     this.routes.navigate(['/cli/inicio/vercurso'])
   }
+  
 
 
 }
