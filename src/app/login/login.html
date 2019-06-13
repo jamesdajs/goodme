@@ -7,53 +7,15 @@
 
 
 
-<ion-content padding>
-
-
-  
-    
-    <!--
-      <ion-list no-lines inset>
-
-        <ion-item>
-          <ion-label floating>Username</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-      
-        <ion-item>
-          <ion-label floating>Password</ion-label>
-          <ion-input type="password"></ion-input>
-        </ion-item>
-      
-      </ion-list>
-
-    -->
-    <ion-grid>
-      <ion-row align-items-end>
-        <ion-col col-12>
-          <h3>Iniciar Sesion</h3>
-          <div class="login">
-            <ion-input type="text" placeholder="Username"></ion-input>
-          </div>
-          <div class="login">
-              <ion-input type="password" placeholder="Password"></ion-input>
-          </div>
-          <div class="login">
-              <ion-button expand="block" color="primary" (click)="loginWithFacebook2()">ingresar</ion-button>
-          </div>
-          <p> <a href="">Registrarse</a> o ingresar con</p>
-          <div class="login">
-              <ion-button expand="block" icon-left color="primary" (click)="loginWithFacebook()">
-                <ion-icon name="logo-facebook"></ion-icon>
-                Facebook
-              </ion-button>
-          </div>
-          <div class="login">
-              <ion-button expand="block"  color="normal">google</ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-      
-
+<ion-content class="ion-padding">
+   <div class="div-title" >
+      <img src="../assets/imgs/title.png"/>
+   </div>
+   <div class="div-btn">
+    <ion-button expand="block" class="btn-log" icon-left color="primary" size="large" (click)="loginWithFacebook()">
+      <ion-icon name="logo-facebook"></ion-icon>
+        Inicia con Facebook
+    </ion-button>
+   </div>
+   
 </ion-content>

@@ -33,6 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { AuthGuardService } from './services/auth-guard.service';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -58,7 +60,8 @@ import { File } from '@ionic-native/file/ngx';
     Facebook,
     ImagePicker,
     Crop,
-    File
+    File,
+    AuthGuardService
 
   ],
   bootstrap: [AppComponent]

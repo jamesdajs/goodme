@@ -44,7 +44,6 @@
     "promise-polyfill": "^8.1.0",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.4.0",
-    "sharp": "^0.22.1",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {

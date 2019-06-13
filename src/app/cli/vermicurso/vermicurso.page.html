@@ -1,5 +1,8 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
         <ion-title>Zumba</ion-title>
       </ion-toolbar>
       <ion-segment  [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
@@ -42,7 +45,7 @@
                   <ion-icon slot="end" name="md-arrow-dropright"></ion-icon>
                 </ion-item>
                 <ion-item-group submenu [class.visible]="showSubmenu">
-                  <ion-item submenu-item>
+                  <ion-item submenu-item (click)="verejercicio()">
                       <ion-avatar item-start>
                           <img src="../../../assets/imgs/fotografo.jpg" class="img-ejercicios">
                         </ion-avatar>

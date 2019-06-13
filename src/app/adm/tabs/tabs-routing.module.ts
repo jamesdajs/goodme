@@ -14,9 +14,22 @@ const routes: Routes = [
             [
               {
                 path: '',
-                loadChildren: '../cursos/cursos.module#CursosPageModule'
-
+                loadChildren: '../miscursos/miscursos.module#MiscursosPageModule'
               }
+            ]
+        },
+        {
+          path: 'misalumnos',
+          children:
+            [
+              {
+                path: '',
+                loadChildren: '../alumnos/alumnos.module#AlumnosPageModule'
+              },
+              {
+                path: 'alumnodetalle',
+                loadChildren: '../alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule'
+              },
             ]
         },
         {
