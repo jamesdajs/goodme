@@ -78,6 +78,16 @@ const routes: Routes = [
                     path: 'crear',
                     loadChildren: '../ejercicios/crear/crear.module#CrearPageModule'
                   },
+                  {
+                    path: 'modificar',
+                    loadChildren: '../ejercicios/modificar/modificar.module#ModificarPageModule'
+                  },
+                  {
+                    path: 'detalle',
+                    loadChildren: './adm/ejercicios/detalle/detalle.module#DetallePageModule'
+                  },
+
+
                 ]
               },
             ]

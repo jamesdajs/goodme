@@ -117,6 +117,12 @@ export class RutinaProvider {
       return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
+    estadoTipoEjercicio(idtipo,estado){
+      let sql="update tipo_ejercicios set estado = ? where idtipo_ejercicios = ?"
+      let values=[estado,idtipo]
+      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
     listarTipoEjercicio(idusu){
       let sql="select * from tipo_ejercicios where idusuario=?"
       let values=[idusu]
@@ -136,15 +142,33 @@ export class RutinaProvider {
       return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
-    crearImagenEjercicio(idejer,datos):Promise<void>{
+    crearImagenEjercicio(idejer:string,datos:{nombre:string,url:string}):Promise<void>{
       let sql="INSERT into  fotos_ejercicios (nombre,url,id_ejercicio) VALUES (?,?,?)"
       let values=[datos.nombre,datos.url,idejer]
       return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
-    modEjercicio(nombre,id){
-      let sql="update tipo_ejercicios set nombre = ? where idtipo_ejercicios = ?"
-      let values=[nombre,id]
+    eliminarImagenEjercicio(idFotoejer){
+      let sql="DELETE FROM fotos_ejercicios WHERE idfotos_ejercicios = ?"
+      let values=[idFotoejer]
+      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    estadoEjercicio(idtipo,estado){
+      let sql="update ejercicios set estado = ? where idejercicios = ?"
+      let values=[estado,idtipo]
+      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    modificarEjercicio(idejer:string,datos){
+      let sql="update ejercicios set nombre = ? ,descripcion=?,instrucciones=?,linkyoutube=? where idejercicios = ?"
+      let values=[datos.nombre,datos.descripcion,datos.instrucciones,datos.linkyoutube,idejer]
+      return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    modThompbailEjercicio(idejer:string,url:string){
+      let sql="update ejercicios set miniatura = ? where idejercicios = ?"
+      let values=[url,idejer]
       return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
@@ -154,10 +178,16 @@ export class RutinaProvider {
       return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
-    listarEjercicio(idtipo){
-      let sql="select * from ejercicios where id_tipoejercicio=?"
-      let values=[idtipo]
+    listarEjercicio(idtipo,estado){
+      let sql="select * from ejercicios where id_tipoejercicio=? and estado=?"
+      let values=[idtipo,estado]
       return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+    }
+    listarImagenesEjercicios(idejer){
+      let sql="select * from fotos_ejercicios where id_ejercicio=? "
+      let values=[idejer]
+      return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
     }
     //ds
 

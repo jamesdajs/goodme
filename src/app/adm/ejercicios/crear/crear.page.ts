@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FotosService } from 'src/app/services/fotos.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { RutinaProvider } from 'src/app/services/rutina/rutina';
 import { ActivatedRoute } from '@angular/router';
@@ -21,6 +21,7 @@ export class CrearPage implements OnInit {
     public loadingController: LoadingController,
     public rutina: RutinaProvider,
     public Aroute: ActivatedRoute,
+    public navCtrl:NavController
   ) {
     this.myForm = this.formb.group({
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
@@ -33,10 +34,16 @@ export class CrearPage implements OnInit {
 
   ngOnInit() {
   }
+  blobktombal
   seleccionarImagenes() {
-    this.fotos.escogerImagenes()
+    this.fotos.escogerImagenes(5)
       .then(urlarray => {
         this.imgCropUrl = urlarray
+        return this.fotos.createThumbnail(urlarray[0].base64)
+      })
+      .then(data=>{
+        this.blobktombal=data.blob
+        //alert(JSON.stringify(data.size))
       })
       .catch(err => console.log(err))
   }
@@ -63,11 +70,17 @@ export class CrearPage implements OnInit {
           return Promise.all(aux)
         })
         .then(()=>{
-          return loadding
+          if(this.blobktombal)
+            return this.fotos.subirimagen(this.blobktombal,'ejercicios','5')
         })
+        .then(res=>{
+          if(res)
+            return this.rutina.modThompbailEjercicio(_idejer,res.dir+res.name)})
+        .then(()=> loadding)
         .then(load=>{
           load.dismiss()
           this.presentToast('Se creo un nuevo ejercicio')
+          this.navCtrl.pop()
         })
         .catch(async err => {
           await loadding.then(load=>load.dismiss())
