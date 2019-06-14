@@ -79,15 +79,37 @@ const routes: Routes = [
                   },
                   {
                     path: 'detalle',
-                    loadChildren: './adm/ejercicios/detalle/detalle.module#DetallePageModule'
+                    loadChildren: '../ejercicios/detalle/detalle.module#DetallePageModule'
                   },
 
 
                 ]
               },
+              
             ]
         },
+        {
+          path: 'rutinas',
+          children: [
+            {
+              path: '',
+              loadChildren: '../rutinas/listar/lista.module#ListaPageModule'
+            },
+            {
+              path: 'crear',
+              loadChildren: '../rutinas/crear/crear.module#CrearPageModule'
+            },
+            {
+              path: 'modificar',
+              loadChildren: '../rutinas/modificar/modificar.module#ModificarPageModule'
+            },
+            {
+              path: 'detalle',
+              loadChildren: '../ejercicios/detalle/detalle.module#DetallePageModule'
+            },
 
+          ]
+        },
         {
           path: '',
           redirectTo: '/adm/cursos',

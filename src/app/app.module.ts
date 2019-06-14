@@ -34,6 +34,8 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AuthGuardService } from './services/auth-guard.service';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -61,7 +63,9 @@ import { AuthGuardService } from './services/auth-guard.service';
     ImagePicker,
     Crop,
     File,
-    AuthGuardService
+    AuthGuardService,
+    Clipboard,
+    WheelSelector
 
   ],
   bootstrap: [AppComponent]

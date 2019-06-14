@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 //import { CrearusuarioPage} from '../crearusuario/crearusuario'
 
 import { UsuarioProvider } from '../services/usuario/usuario';
@@ -24,7 +24,8 @@ export class LoginPage implements OnInit {
     private splashscreen: SplashScreen,
     private storage: Storage,
     private loadCtrl: LoadingController,
-    private router: Router
+    private router: Router,
+    private navCtrl:NavController,
   ) {
   }
   token
@@ -37,7 +38,7 @@ export class LoginPage implements OnInit {
     .catch(err=>console.log(err))*/
     this.storage.get("idusuario")
       .then(id => {
-        if (id) this.router.navigate(['/adm/cursos', { hola: 'holamundo' }])
+        if (id) this.navCtrl.navigateRoot(['/adm/cursos', { hola: 'holamundo' }])
       })
 
 
@@ -54,7 +55,7 @@ export class LoginPage implements OnInit {
       .then(res => {
         //console.log(res)
         //cli
-        this.router.navigate(['/adm/cursos', { hola: 'holamundo' }])
+        this.navCtrl.navigateRoot(['/adm/cursos', { hola: 'holamundo' }])
         cargar.dismiss()
       })
       .catch(err => {

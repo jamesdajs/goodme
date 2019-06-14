@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { UsuarioProvider } from 'src/app/services/usuario/usuario';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
 
 @Component({
   selector: 'app-perfil',
@@ -15,10 +15,11 @@ export class PerfilPage implements OnInit {
   verdatos = true
   id
   constructor(
-    private router: Router,
     private storage: Storage,
     private user: UsuarioProvider,
     public alertController: AlertController,
+    private navCtrl:NavController,
+    private selector:WheelSelector
 
   ) {
 
@@ -35,13 +36,13 @@ export class PerfilPage implements OnInit {
 
   }
   modperfil() {
-    this.router.navigate(["/adm/perfil/mod-perfil", this.datos[0]])
+    this.navCtrl.navigateForward(["/adm/perfil/mod-perfil", this.datos[0]])
   }
   cargardatos(id) {
-    this.user.verUsuarioIDdbalumno(id)
+    this.user.verUsuarioIDdbinstructor(id)
       .then(datos => {
         console.log(datos[0])
-        this.genero = datos[0].genero != 'h' ? 'Mujer' : 'Hombre'
+        this.genero = datos[0].genero == 'm' ? 'Mujer' : 'Hombre'
 
         this.datos = datos
       })
@@ -64,7 +65,7 @@ export class PerfilPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.storage.clear()
-              .then(() => this.router.navigate(["/"]))
+              .then(() => this.navCtrl.navigateRoot(["/"]))
           }
         }
       ]
@@ -79,7 +80,49 @@ export class PerfilPage implements OnInit {
     })
     .then(rol=>{
       console.log("rol before change:"+rol)
-      this.router.navigate(['/cli'])
+      this.navCtrl.navigateRoot(['/cli/miperfil'])
       }) 
   }
+  jsonData = {
+    numbers: [
+     { description: "1" },
+      { description: "2" },
+      { description: "3" }
+    ],
+    fruits: [
+      { description: "Apple" },
+      { description: "Banana" },
+      { description: "Tangerine" }
+    ],
+    firstNames: [
+      { name: "Fred", id: '1' },
+      { name: "Jane", id: '2' },
+      { name: "Bob", id: '3' },
+      { name: "Earl", id: '4' },
+      { name: "Eunice", id: '5' }
+    ],
+    lastNames: [
+      { name: "Johnson", id: '100' },
+      { name: "Doe", id: '101' },
+      { name: "Kinishiwa", id: '102' },
+      { name: "Gordon", id: '103' },
+      { name: "Smith", id: '104' }
+    ]
+  }
+  
+  
+  // basic number selection, index is always returned in the result
+   selectANumber() {
+     this.selector.show({
+       title: "How Many?",
+       items: [
+         this.jsonData.numbers
+       ],
+     }).then(
+       result => {
+         console.log(result[0].description + ' at index: ' + result[0].index);
+       },
+       err => console.log('Error: ', err)
+       );
+   }
 }
