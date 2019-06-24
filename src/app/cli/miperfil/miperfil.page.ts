@@ -108,14 +108,4 @@ export class MiperfilPage implements OnInit {
   }
 
 
-  cargardatos(id) {
-    this.user.verUsuarioIDdbalumno(id)
-      .then(datos => {
-        console.log('datos usuario '+datos[0])
-        this.genero = datos[0].genero != 'h' ? 'Mujer' : 'Hombre'
-        this.datos = datos[0]
-      })
-      .catch(err => console.log(err))
-  }
-
 }

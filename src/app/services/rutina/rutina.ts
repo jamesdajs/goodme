@@ -135,7 +135,7 @@ export class RutinaProvider {
     return this.http.post<any>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
-  crearEjercicio(idtipo, datos): Promise<void> {
+  crearEjercicio(idtipo, datos) {
     let sql = "INSERT into  ejercicios (id_tipoejercicio,nombre,descripcion,instrucciones,linkyoutube) VALUES (?,?,?,?,?)"
     let values = [idtipo, datos.nombre, datos.descripcion, datos.instrucciones, datos.linkyoutube]
     return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })

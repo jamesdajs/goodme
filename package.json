@@ -112,8 +112,8 @@
       "cordova-wheel-selector-plugin": {},
       "cordova-plugin-x-socialsharing": {
         "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
-      }
-      "cordova-clipboard": {},
+      },
+      "cordova-clipboard": {}
     },
     "platforms": [
       "android",

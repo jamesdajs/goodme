@@ -58,9 +58,8 @@ export class CrearPage implements OnInit {
       let loadding = this.presentLoading('Guardando datos...')
       let _idejer=''
       this.rutina.crearEjercicio(this.idtipo, this.myForm.value)
-        .then(()=> this.rutina.verUltimoIdEjercicio(this.idtipo))
         .then(idejer=>{
-          _idejer=idejer[0].idejercicios
+          _idejer=idejer
           let aux=[]
           for(let i in this.imgCropUrl)
             aux.push(this.fotos.subirimagen(this.imgCropUrl[i].blob,'ejercicios',i))
