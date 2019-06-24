@@ -25,13 +25,14 @@
         <ion-fab-button><ion-icon  name="add"></ion-icon></ion-fab-button>
       </ion-fab>
     <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
-        <ion-slide value="first"> 
-            <ion-card> 
+        <ion-slide value="first" > 
+          <ion-row *ngFor="let item of cursos; let i=index "> 
+            <ion-card>
                 <ion-item>
                   <ion-avatar item-start>
-                    <img class="img-alumno" src="../../../assets/imgs/defecto2.jpeg">
+                    <img class="img-alumno" [src]="item.foto">
                   </ion-avatar>
-                  <ion-label class="label-name-post">p.nombre</ion-label>
+                  <ion-label class="label-name-post">{{item.fullname}}</ion-label>
                   <ion-button fill="clear" (click)="opciones()">
                       <ion-icon name="md-more"></ion-icon>
                   </ion-button>
@@ -44,43 +45,29 @@
                   </ion-slides>
                 </div>
                 <ion-card-header class="padding-post-detail-title">
-                  <ion-card-title>Title</ion-card-title>
+                  <ion-card-title>{{item.titulo}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="padding-post-detail">
-                  Awesome content Awesome content Awesome contentAwesome
-                  Awesome content contentAwesome content Awesome content
-               
+                  {{item.descripcion}}
+                
                 <ion-item class="ion-no-padding">
-                  <ion-label>Duración 2 meses 13 Semanas</ion-label>
-                  <ion-label class="costo-post">Costo 10 USD</ion-label>
+                  <ion-label>Duración {{item.hora}} horas {{item.semanas}} Semanas</ion-label>
+                  <ion-label class="costo-post">Costo {{item.costo}} {{item.tipomoneda}} </ion-label>
                 </ion-item>
-              </ion-card-content>
-            </ion-card>          
+                </ion-card-content>
+            </ion-card>
+          </ion-row>
         </ion-slide>
         <ion-slide value="second">
-            <ion-grid class="ion-no-padding">
-                <ion-row>
-                  <ion-col col-4>
-                    <ion-slides pager class="post-perfil" >
-                        <ion-slide >
-                            <img src="../../../assets/imgs/defecto.jpeg" (click)="opciones()">
-                        </ion-slide>
-                    </ion-slides>
-                  </ion-col>
-                  <ion-col col-4>
-                    <ion-slides pager class="post-perfil" >
-                        <ion-slide >
-                            <img src="../../../assets/imgs/defecto2.jpeg" (click)="opciones()">
-                        </ion-slide>
-                    </ion-slides>
-                  </ion-col>
-                  <ion-col col-4>
-                      <ion-slides pager class="post-perfil" >
-                          <ion-slide >
-                              <img src="../../../assets/imgs/defecto.jpeg" (click)="opciones()">
-                          </ion-slide>
-                      </ion-slides>
-                    </ion-col>
+            <ion-grid class="ion-no-padding" *ngFor="let item of cursos; let i=index ">
+                <ion-row >
+                      <ion-col col-4>
+                          <ion-slides pager class="post-perfil" >
+                              <ion-slide >
+                                  <img src="../../../assets/imgs/defecto.jpeg" (click)="opciones()">
+                              </ion-slide>
+                          </ion-slides>
+                        </ion-col>
                 </ion-row>
               </ion-grid>
         </ion-slide>  

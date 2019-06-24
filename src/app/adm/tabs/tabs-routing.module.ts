@@ -84,7 +84,7 @@ const routes: Routes = [
                   },
                   {
                     path: 'detalle',
-                    loadChildren: './adm/ejercicios/detalle/detalle.module#DetallePageModule'
+                    loadChildren: '../ejercicios/detalle/detalle.module#DetallePageModule'
                   },
 
 
