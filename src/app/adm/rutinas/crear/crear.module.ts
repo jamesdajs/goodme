@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
 import { CrearPage } from './crear.page';
-//imporstpara fotos
+import { ModaladdejerPage } from '../modaladdejer/modaladdejer.page';
+import { ModaladdejerPageModule } from '../modaladdejer/modaladdejer.module';
 
 const routes: Routes = [
   {
@@ -16,18 +17,17 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents:[
+    ModaladdejerPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule 
-
+    ReactiveFormsModule,
+    ModaladdejerPageModule
   ],
   declarations: [CrearPage]
-  ,
-  providers:[
-    FormBuilder,
-  ]
 })
 export class CrearPageModule {}

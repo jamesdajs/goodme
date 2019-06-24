@@ -4,7 +4,7 @@ import { FotosService } from 'src/app/services/fotos.service';
 import { ToastController, LoadingController, NavController, ActionSheetController } from '@ionic/angular';
 import { RutinaProvider } from 'src/app/services/rutina/rutina';
 import { ActivatedRoute } from '@angular/router';
-
+declare var cordova:any
 @Component({
   selector: 'app-modificar',
   templateUrl: './modificar.page.html',
@@ -172,4 +172,9 @@ export class ModificarPage implements OnInit {
       })
       .catch(err=>console.log(err))
   }
+  pegar(){
+    cordova.plugins.clipboard.paste((text)=> { 
+      this.myForm.get('linkyoutube').setValue(text)
+     })
+ }
 }

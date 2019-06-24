@@ -93,6 +93,6 @@ export class EjerciciosPage implements OnInit {
     this.router.navigate(['/adm/tipo-ejercicios/ejercicios/modificar',item])
   }
   verDetalleEjercicio(item){
-    this.router.navigate(['/adm/tipo-ejercicios/ejercicios/detalle'],item)
+    this.router.navigate(['/adm/tipo-ejercicios/ejercicios/detalle',item])
   }
 }

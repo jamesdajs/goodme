@@ -9,8 +9,9 @@ const routes: Routes = [
   { path: 'cli', loadChildren: './cli/tabs/tabs.module#TabsPageModule', canActivate: [AuthGuardService] },
   //{ path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
   { path: 'alumnosdetalle', loadChildren: './adm/alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule' },
- 
-  
+
+  { path: 'modaladdejer', loadChildren: './adm/rutinas/modaladdejer/modaladdejer.module#ModaladdejerPageModule' },
+
   //{ path: 'crear-tipoejercicio', loadChildren: './adm/crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule' },
 
 ];
