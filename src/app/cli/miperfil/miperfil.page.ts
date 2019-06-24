@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Router } from '@angular/router';
+
 import { Storage } from '@ionic/storage';
 import { UsuarioProvider } from 'src/app/services/usuario/usuario';
 import { AlertController, NavController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-miperfil',
@@ -9,6 +13,7 @@ import { AlertController, NavController } from '@ionic/angular';
   styleUrls: ['./miperfil.page.scss'],
 })
 export class MiperfilPage implements OnInit {
+
 
 
   datos = []
@@ -72,6 +77,7 @@ export class MiperfilPage implements OnInit {
       })
       .then(rol => {
         console.log("rol before change:" + rol)
+
         this.navCtrl.navigateRoot(['/adm/perfil'])
         return this.user.creardatosInstructor({
           descripcion: '',
@@ -83,6 +89,7 @@ export class MiperfilPage implements OnInit {
       })
       .then(() => {
         console.log('se creo datos de instructor')
+
       })
       .catch(err => {
         console.log(err, 'datos ya creados')
@@ -99,4 +106,16 @@ export class MiperfilPage implements OnInit {
       this.cargardatos(id)
     })
   }
+
+
+  cargardatos(id) {
+    this.user.verUsuarioIDdbalumno(id)
+      .then(datos => {
+        console.log('datos usuario '+datos[0])
+        this.genero = datos[0].genero != 'h' ? 'Mujer' : 'Hombre'
+        this.datos = datos[0]
+      })
+      .catch(err => console.log(err))
+  }
+
 }

@@ -334,11 +334,12 @@ verSitienenDatos() {
     return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
-  verUsuarioIDdbinstructor(id): Promise<any> {
-    let sql = "select * from usuarios,datos_ins where idusuarios=? and iddatos_ins=idusuarios"
+  verUsuarioIDdbinstructor(id):Promise<any> {
+    let sql = "select * from usuarios where idusuarios=? "
     let values = [id]
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.headers })
       .toPromise()
+    //return this.http.post<[]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
   }
   consultas() {
     let sql = "ALTER TABLE datos_ins ADD COLUMN direccion varchar(100) not null"

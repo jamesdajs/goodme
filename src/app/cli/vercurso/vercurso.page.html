@@ -16,30 +16,29 @@
       </ion-slides>
     </div> 
       <ion-card-header >
-          <ion-button expand="block" color="secondary" fill="outline" (click)="detallepago()">
-              Suscribirme | 10 USD
+          <ion-button expand="block" color="secondary" fill="outline" (click)="detallepago(datos.costo)">
+              Suscribirme | {{datos.costo}} {{datos.tipomoneda}}
             </ion-button> 
-        <ion-card-title>Awesome Title</ion-card-title>
+        <ion-card-title>{{datos.titulo}}</ion-card-title>
       </ion-card-header>
       
       <ion-card-content >
-        Awesome content Awesome content Awesome contentAwesome
-        Awesome content contentAwesome content Awesome content
+        {{datos.descripcion}}
       </ion-card-content>
       <ion-item>
-        <ion-label>Duración 2 meses 13 Semanas</ion-label>
+        <ion-label>Duración {{datos.hora}} horas {{datos.semanas}} Semanas</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label>Costo 10 USD</ion-label>
+        <ion-label>Costo {{datos.costo}} {{datos.tipomoneda}}</ion-label>
       </ion-item>
-      <ion-item (click)="verinstructor()">
+      <ion-item (click)="verinstructor(datos.idusuarios)">
           <ion-avatar item-start>
-              <img src="../../../assets/imgs/defecto2.jpeg">
+              <img [src]="datos.foto">
             </ion-avatar>
-            <ion-label class="name-instructor">Luis Fernando Huanca</ion-label>
+            <ion-label class="name-instructor"> {{datos.fullname}} </ion-label>
             <ion-icon slot="end" name="md-arrow-dropright"></ion-icon>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="datos.telefono!==null">
         <ion-label> 60269038</ion-label>
         <ion-icon slot="end" name="logo-whatsapp"></ion-icon>
       </ion-item>

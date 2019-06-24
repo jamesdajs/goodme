@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
 })
 export class VercursoPage implements OnInit {
 
-  constructor(private routes:Router) { }
+  datos
+  comision
+  constructor(private routes:Router) { 
+    this.datos=this.routes.getCurrentNavigation().extras
+  }
   showToolbar = false;
   onScroll($event: CustomEvent<ScrollDetail>) {
     if ($event && $event.detail && $event.detail.scrollTop) {
@@ -20,12 +24,18 @@ export class VercursoPage implements OnInit {
 
   ngOnInit() {
   }
-  detallepago(){
-    this.routes.navigate(['/cli/inicio/vercurso/detallepago'])
+  ionViewWillEnter() {
+
+  }
+ 
+
+  detallepago(costo){
+    this.comision= (costo*0.03)/100
+    this.routes.navigate(['/cli/inicio/vercurso/detallepago',{comision:this.comision,costo:costo,moneda:this.datos.tipomoneda,curso:this.datos.titulo}])
   }
 
-  verinstructor(){
-    this.routes.navigate(['/cli/inicio/vercurso/verinstructor'])
+  verinstructor(id){
+    this.routes.navigate(['/cli/inicio/vercurso/verinstructor'],id)
   }
 
 }

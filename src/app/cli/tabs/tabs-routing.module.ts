@@ -46,6 +46,19 @@ const routes: Routes = [
               ]
             },
             {
+              path: 'verinstructorI',
+              children:[
+                {
+                  path: '',
+                  loadChildren: '../ver-instructor/ver-instructor.module#VerInstructorPageModule'
+                },
+                {
+                  path: 'vercursop',
+                  loadChildren: '../vercurso/vercurso.module#VercursoPageModule'
+                },
+              ]
+            },
+            {
               path: '',
               redirectTo: '/cli/inicio',
               pathMatch: 'full'

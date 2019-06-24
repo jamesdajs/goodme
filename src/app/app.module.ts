@@ -34,8 +34,11 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AuthGuardService } from './services/auth-guard.service';
-import { Clipboard } from '@ionic-native/clipboard/ngx';
+
 import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,7 +53,7 @@ import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
@@ -63,6 +66,7 @@ import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
     ImagePicker,
     Crop,
     File,
+    SocialSharing,
     AuthGuardService,
     Clipboard,
     WheelSelector
