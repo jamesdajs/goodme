@@ -72,6 +72,8 @@ export class PerfilPage implements OnInit {
 
     await alert.present();
   }
+
+  //FUNCION CAMBIA DE ROL A ALUMNO
   changeAlumno(){
     this.storage.set('rol', "alumno")
     .then(()=>{
@@ -81,5 +83,10 @@ export class PerfilPage implements OnInit {
       console.log("rol before change:"+rol)
       this.router.navigate(['/cli'])
       }) 
+  }
+
+  //REDIRECCIONA PAGINA HORARIOS
+  mishorarios(){
+    this.router.navigate(["/adm/perfil/mishorarios"])
   }
 }

@@ -339,4 +339,14 @@ verSitienenDatos() {
     return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
+
+  guardarhorario(idusu,cant,dia,hi,hf) {
+    console.log("servicio "+idusu+" "+cant+" "+dia+" "+hi+" "+hf);
+    
+    let sql = '', values = []
+    sql = "INSERT into horarios (id_usuarios,cantidad,dia,hora_ini,hora_fin) VALUES (?,?,?,?,?)"
+    values = [idusu,cant,dia,hi,hf]
+    return this.http.post(this.urlsql, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
 }

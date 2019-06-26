@@ -51,6 +51,11 @@ const routes: Routes = [
                 path: 'mod-perfil',
                 loadChildren: '../mod-perfil/mod-perfil.module#ModPerfilPageModule'
               },
+              { 
+                path: 'mishorarios', 
+                loadChildren: '../mishorarios/mishorarios.module#MishorariosPageModule' 
+              },
+
             ]
         },
         {

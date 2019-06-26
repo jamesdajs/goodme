@@ -30,7 +30,7 @@ export class VercursoPage implements OnInit {
  
 
   detallepago(costo){
-    this.comision= (costo*0.03)/100
+    this.comision= (costo*0.1)
     this.routes.navigate(['/cli/inicio/vercurso/detallepago',{comision:this.comision,costo:costo,moneda:this.datos.tipomoneda,curso:this.datos.titulo}])
   }
 
