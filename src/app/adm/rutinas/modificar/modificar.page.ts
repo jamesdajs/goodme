@@ -62,21 +62,15 @@ myForm: FormGroup
     if(this.myForm.invalid || this.ejercicios.length==0)
       this.presentToast('Tienen que llenar todos los campos y seleccionar al menos un ejercicio')
     else{
-      let _idusu, _idrut
-      this.storage.get('idusuario')
-      .then(idusu=>{
-        _idusu = idusu
-        return this.rutina.crearRutinaDefecto(_idusu,this.myForm.value)
-      })
+      this.rutina.modificarRutinaDefecto(this.idrut,this.myForm.value)
       .then(res=>{
         let func = []
         console.log(res)
-        _idrut=res
         for(let i in this.ejercicios)
-          func.push(this.rutina.crearRutina_Ejer(res,this.ejercicios[i].idejercicios))
+          func.push(this.rutina.crearRutina_Ejer(this.idrut,this.ejercicios[i].idejercicios))
         return Promise.all(func)
       })
-      .then(()=>this.rutina.listaridejerrut(_idrut))
+      .then(()=>this.rutina.listaridejerrut(this.idrut))
       .then(array=>{
         console.log(array);
         let func=[]

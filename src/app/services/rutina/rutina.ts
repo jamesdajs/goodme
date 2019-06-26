@@ -203,6 +203,12 @@ export class RutinaProvider {
     return this.http.post(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
+  modificarRutinaDefecto(idrut,datos){
+    let sql = "update rutinas set nombre=?,descripcion=? where idrutinas = ?"
+    let values = [datos.nombre, datos.descripcion, idrut]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
   listarRutinasDefecto(idusu, estado) {
     let sql = "select * from rutinas where idusuario=? and estado=?"
     let values = [idusu, estado]
