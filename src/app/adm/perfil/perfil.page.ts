@@ -3,6 +3,8 @@ import { Storage } from '@ionic/storage';
 import { UsuarioProvider } from 'src/app/services/usuario/usuario';
 import { AlertController, NavController } from '@ionic/angular';
 import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
+import { AuthFacebookProvider } from 'src/app/services/authfacebok/authfacebok';
+
 
 @Component({
   selector: 'app-perfil',
@@ -19,7 +21,8 @@ export class PerfilPage implements OnInit {
     private user: UsuarioProvider,
     public alertController: AlertController,
     private navCtrl:NavController,
-    private selector:WheelSelector
+    private selector:WheelSelector,
+    private logfb:AuthFacebookProvider
 
   ) {
 
@@ -65,7 +68,10 @@ export class PerfilPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.storage.clear()
-              .then(() => this.navCtrl.navigateRoot(["/"]))
+              .then(() => {
+                this.logfb.logout()
+                this.navCtrl.navigateRoot(["/"])
+              })
           }
         }
       ]

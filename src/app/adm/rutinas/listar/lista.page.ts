@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, IonList } from '@ionic/angular';
 import { RutinaProvider } from 'src/app/services/rutina/rutina';
 import { Storage } from '@ionic/storage';
 
@@ -11,13 +11,18 @@ import { Storage } from '@ionic/storage';
 export class ListaPage implements OnInit {
   rutinas = []
   ejercicios={}
+  @ViewChild('lista') lista: IonList
   constructor(public navCtrl: NavController,
     private rutina: RutinaProvider,
     private storage: Storage
   ) { }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
     this.cargardatos()
+    this.lista.closeSlidingItems()
+
   }
   crear() {
     this.navCtrl.navigateForward(['/adm/rutinas/crear'])
@@ -45,5 +50,8 @@ export class ListaPage implements OnInit {
   }
   verdetalle(item){
     this.navCtrl.navigateForward(['/adm/rutinas/detalle',item])
+  }
+  modificar(item){
+    this.navCtrl.navigateForward(['/adm/rutinas/modificar',item])
   }
 }

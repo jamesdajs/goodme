@@ -12,6 +12,7 @@ import { ModalasetsPage } from '../modalasets/modalasets.page';
 export class ModaladdejerPage implements OnInit {
   @Input() datos
   @Input() ejerselec = []
+  @Input() ejerguardados = []
   tipoejer = []
   modalejer = {}
   constructor(
@@ -21,7 +22,7 @@ export class ModaladdejerPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.ejerselec);
+    console.log(this.ejerselec,this.ejerguardados);
     this.cargartiposejercicios()
   }
   salir() {
@@ -54,6 +55,10 @@ export class ModaladdejerPage implements OnInit {
             this.ejerselec.forEach(ejer => {
               if (ejer.idejercicios == elem.idejercicios)
                 elem['estadoadd'] = true
+            })
+            this.ejerguardados.forEach(ejerg=>{
+              if (ejerg.idejercicios == elem.idejercicios)
+                elem['disabled'] = true
             })
 
           })

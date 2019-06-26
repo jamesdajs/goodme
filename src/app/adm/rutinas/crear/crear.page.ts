@@ -52,14 +52,14 @@ export class CrearPage implements OnInit {
       this.storage.get('idusuario')
       .then(idusu=>{
         _idusu = idusu
-        this.rutina.crearRutinaDefecto(_idusu,this.myForm.value)
+        return this.rutina.crearRutinaDefecto(_idusu,this.myForm.value)
       })
-      .then(()=>this.rutina.verUltimoIdrutina(_idusu))
       .then(res=>{
         let func = []
-        _idrut=res[0].idrutinas
+        console.log(res)
+        _idrut=res
         for(let i in this.ejercicios)
-          func.push(this.rutina.crearRutina_Ejer(res[0].idrutinas,this.ejercicios[i].idejercicios))
+          func.push(this.rutina.crearRutina_Ejer(res,this.ejercicios[i].idejercicios))
         return Promise.all(func)
       })
       .then(()=>this.rutina.listaridejerrut(_idrut))
@@ -97,4 +97,5 @@ export class CrearPage implements OnInit {
     });
     toast.present();
   }
+  
 }

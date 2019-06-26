@@ -10,7 +10,7 @@ const routes: Routes = [
   //{ path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
   { path: 'alumnosdetalle', loadChildren: './adm/alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule' },
 
-  { path: 'modaladdejer', loadChildren: './adm/rutinas/modaladdejer/modaladdejer.module#ModaladdejerPageModule' },
+  //{ path: 'modaladdejer', loadChildren: './adm/rutinas/modaladdejer/modaladdejer.module#ModaladdejerPageModule' },
 
   //{ path: 'crear-tipoejercicio', loadChildren: './adm/crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule' },
 

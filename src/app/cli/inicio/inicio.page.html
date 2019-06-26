@@ -28,9 +28,14 @@
       
             <div>
               <ion-slides pager class="ion-no-padding">
-                <ion-slide class="ion-no-padding">
+                <ion-slide class="ion-no-padding" *ngIf="item.fotos.length==0; else blockelse">
                   <img src="../../../assets/imgs/defecto.jpeg" width="100%">
                 </ion-slide>
+                <ng-template #blockelse>
+                    <ion-slide class="ion-no-padding" *ngFor="let foto of item.fotos">
+                        <img [src]="foto.url" width="100%">
+                      </ion-slide>
+                  </ng-template>
               </ion-slides>
             </div>
       

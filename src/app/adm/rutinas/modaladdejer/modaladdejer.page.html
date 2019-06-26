@@ -58,7 +58,7 @@
 						<h2>{{ejer.nombre}}</h2>
 						<p>{{ejer.descripcion}}</p>
 					</ion-label>
-					<ion-checkbox color="dark" item-right [(ngModel)]="ejer.estadoadd"></ion-checkbox>
+					<ion-checkbox color="dark" item-right [(ngModel)]="ejer.estadoadd" [disabled]='ejer.disabled'></ion-checkbox>
 
 				</ion-item>
 			</div>

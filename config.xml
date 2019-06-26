@@ -85,5 +85,7 @@
     <plugin name="cordova-plugin-facebook4" spec="4.2.1">
         <variable name="APP_ID" value="675469602855153" />
         <variable name="APP_NAME" value="entrenador personal" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
+        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="true" />
     </plugin>
 </widget>

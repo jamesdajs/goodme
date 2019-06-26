@@ -94,7 +94,7 @@ export class LoginPage implements OnInit {
 
             }
           })
-
+          .catch(err=>console.log(err))
       })
         .catch(err => {
           reject(err)

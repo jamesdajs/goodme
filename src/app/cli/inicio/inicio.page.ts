@@ -69,7 +69,19 @@ export class InicioPage implements OnInit {
 
   //FUNCION LISTAR CURSOS
   listarcursos() {
-    this.servicesCurso.listarcursos(1).subscribe(data=>this.cursos=data)
+    this.servicesCurso.listarcursos(1).subscribe(data=>{
+
+      data.forEach(item=>{
+        item.idcursos
+        item['fotos']=[]
+        this.servicesCurso.listarfotos(item.idcursos)
+        .then(res=>{
+          item['fotos']=res
+        })
+      })
+      this.cursos=data
+      console.log(data)
+    })
   }
 
   //FUNCION VER INSTRUCTOR
@@ -81,15 +93,20 @@ export class InicioPage implements OnInit {
   //-----FUNCIONES PARA COMPARTIR CURSOS----
 
   shareWithOptions(item){
-    var options = {
-      message: item.titulo,
-      subject: item.descripcion,
+    /*var options = {
+      message: 'hola',
+      subject: 'descripcion nada',
       files: "https://www.fbhoy.com/wp-content/uploads/2016/03/como-personalizar-url-pagina-facebook.jpg", 
       url:'www.hegaro.com.bo',//the property mentioned in the explanation
       chooserTitle: 'Share via'
-    };
+    };*/
 
-    this.socialsharing.shareWithOptions(options).then(() => {
+    this.socialsharing.shareWithOptions({
+      message:"hola",
+      subject:'algo para mostrar',
+      url:'www.hegaro.com.bo',
+      chooserTitle:'Compartir Via'
+    }).then(() => {
       console.log("shared successfull"); 
     }).catch((e) => {
       console.log("shared failed"+e);

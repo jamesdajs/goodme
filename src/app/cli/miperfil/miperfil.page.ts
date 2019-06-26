@@ -31,10 +31,17 @@ export class MiperfilPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Perfil Page cli");
+    console.log("Perfil Page");
+    this.storage.get("idusuario")
+      .then(id => {
+        console.log(id)
+        this.id = id
+        this.cargardatos(id)
+      })
+
   }
   cargardatos(id) {
-    this.user.verUsuarioIDdbalumno(id)
+    this.user.verUsuarioIDdbinstructor(id)
       .then(datos => {
         console.log(datos[0])
         this.genero = datos[0].genero == 'm' ? 'Mujer' : 'Hombre'

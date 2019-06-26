@@ -259,12 +259,12 @@ verSitienenDatos() {
   urlUpdate = Configurl.url + "usuarios/modificar"
   urlDelete = Configurl.url + "usuarios/eliminar"
   urlsql = Configurl.url +"consultas/crear"
-  headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'X-CSRF-TOKEN': "token",
-    'Authorization': "token"
-  })
-
+  
+  getheaders(){
+    let headers = new HttpHeaders()
+    headers = headers.append("Content-Type", "application/json");
+    return headers
+  }
   guardarusuario(Datos) {
     let sql = '', values = []
     if (Datos.correo) {
@@ -275,7 +275,7 @@ verSitienenDatos() {
       values = [Datos.id, Datos.name, Datos.foto]
     }
 
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders()})
       .toPromise()
   }
   actualizarusuario(Datos) {
@@ -289,13 +289,13 @@ verSitienenDatos() {
       values = [Datos.name, Datos.foto, Datos.id]
     }
 
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders() })
       .toPromise()
   }
   actualizarusuariodatosnormales(Datos, id) {
     let sql = "update usuarios set fechanac = ?,peso = ?,altura=?,genero=?,telefono=?,correo=? where idusuarios = ?"
     let values = [Datos.fechanac, Datos.peso, Datos.altura, Datos.genero, Datos.telefono,Datos.correo, id]
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders()})
       .toPromise()
   }
   creardatosInstructor(Datos:{descripcion:string,direccion:string,lat:string,lng:string,zoom:string}, id) {
@@ -304,7 +304,7 @@ verSitienenDatos() {
     let values = [
       id, Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom
     ]
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders() })
       .toPromise()
   }
   modificardatosInstructor(Datos:{descripcion:string,direccion:string,lat:string,lng:string,zoom:string}, id) {
@@ -313,38 +313,38 @@ verSitienenDatos() {
     let values = [
       Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom,id
     ]
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders() })
       .toPromise()
   }
   listarusuarios() {
     let sql = "select * from usuarios"
     let values = []
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders() })
       .toPromise()
   }
   verUsuarioIDfb(idfb): Promise<any> {
     let sql = "select * from usuarios where idfacebook=?"
     let values = [idfb]
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlSelect, { sql: sql, values: values })
       .toPromise()
   }
   verUsuarioIDdbalumno(id): Promise<any> {
     let sql = "select * from usuarios where idusuarios=? "
     let values = [id]
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders() })
       .toPromise()
   }
   verUsuarioIDdbinstructor(id):Promise<any> {
     let sql = "select * from usuarios where idusuarios=? "
     let values = [id]
-    return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.headers })
+    return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.getheaders() })
       .toPromise()
     //return this.http.post<[]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
   }
   consultas() {
     let sql = "ALTER TABLE datos_ins ADD COLUMN direccion varchar(100) not null"
     let values = []
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders() })
       .toPromise()
   }
 }
