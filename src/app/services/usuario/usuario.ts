@@ -346,7 +346,7 @@ verSitienenDatos() {
     let sql = '', values = []
     sql = "INSERT into horarios (id_usuarios,cantidad,dia,hora_ini,hora_fin) VALUES (?,?,?,?,?)"
     values = [idusu,cant,dia,hi,hf]
-    return this.http.post(this.urlsql, { sql: sql, values: values }, { headers: this.headers })
+    return this.http.post(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
 }
