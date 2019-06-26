@@ -25,51 +25,57 @@
         <ion-fab-button><ion-icon  name="add"></ion-icon></ion-fab-button>
       </ion-fab>
     <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
-        <ion-slide value="first" > 
-          <ion-row *ngFor="let item of cursos; let i=index "> 
-            <ion-card>
-                <ion-item>
-                  <ion-avatar item-start>
-                    <img class="img-alumno" [src]="item.foto">
-                  </ion-avatar>
-                  <ion-label class="label-name-post">{{item.fullname}}</ion-label>
-                  <ion-button fill="clear" (click)="opciones()">
-                      <ion-icon name="md-more"></ion-icon>
-                  </ion-button>
-                </ion-item>
-                <div class="ion-no-padding">
-                  <ion-slides pager >
-                      <ion-slide >
-                          <img src="../../../assets/imgs/defecto.jpeg" >
-                      </ion-slide>
-                  </ion-slides>
-                </div>
-                <ion-card-header class="padding-post-detail-title">
-                  <ion-card-title>{{item.titulo}}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content class="padding-post-detail">
-                  {{item.descripcion}}
-                
-                <ion-item class="ion-no-padding">
-                  <ion-label>Duración {{item.hora}} horas {{item.semanas}} Semanas</ion-label>
-                  <ion-label class="costo-post">Costo {{item.costo}} {{item.tipomoneda}} </ion-label>
-                </ion-item>
-                </ion-card-content>
-            </ion-card>
-          </ion-row>
+        <ion-slide value="first"> 
+          <div  class="div-content">
+            <div *ngFor="let item of cursos; let i=index">
+                <ion-card >
+                    <ion-item>
+                      <ion-avatar item-start>
+                        <img class="img-alumno" [src]="item.foto">
+                      </ion-avatar>
+                      <ion-label class="label-name-post">{{item.fullname}}</ion-label>
+                      <ion-button fill="clear" (click)="opciones()">
+                          <ion-icon name="md-more"></ion-icon>
+                      </ion-button>
+                    </ion-item>
+                    <div class="ion-no-padding">
+                      <ion-slides pager >
+                          <ion-slide >
+                              <img src="../../../assets/imgs/defecto.jpeg" >
+                          </ion-slide>
+                      </ion-slides>
+                    </div>
+                    <ion-card-header class="padding-post-detail-title">
+                      <ion-card-title>{{item.titulo}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content class="padding-post-detail">
+                      {{item.descripcion}}
+                    
+                    <ion-item class="ion-no-padding">
+                      <ion-label>Duración {{item.hora}} horas {{item.semanas}} Semanas</ion-label>
+                      <ion-label class="costo-post">Costo {{item.costo}} {{item.tipomoneda}} </ion-label>
+                    </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </div>
+          </div>
         </ion-slide>
         <ion-slide value="second">
-            <ion-grid class="ion-no-padding" *ngFor="let item of cursos; let i=index ">
+         <div class="div-content">
+            <ion-grid class="ion-no-padding">
                 <ion-row >
-                      <ion-col col-4>
-                          <ion-slides pager class="post-perfil" >
+                    <ion-col size="4" *ngFor="let item of cursos; let i=index">
+                      <div>
+                          <ion-slides pager  >
                               <ion-slide >
                                   <img src="../../../assets/imgs/defecto.jpeg" (click)="opciones()">
                               </ion-slide>
                           </ion-slides>
-                        </ion-col>
+                      </div>
+                    </ion-col>
                 </ion-row>
-              </ion-grid>
+            </ion-grid>
+         </div>
         </ion-slide>  
       </ion-slides>
 </ion-content>
