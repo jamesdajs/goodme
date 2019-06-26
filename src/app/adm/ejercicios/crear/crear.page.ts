@@ -5,6 +5,8 @@ import { ToastController, LoadingController, NavController } from '@ionic/angula
 import { finalize } from 'rxjs/operators';
 import { RutinaProvider } from 'src/app/services/rutina/rutina';
 import { ActivatedRoute } from '@angular/router';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+declare var cordova: any;
 @Component({
   selector: 'app-crear',
   templateUrl: './crear.page.html',
@@ -21,7 +23,8 @@ export class CrearPage implements OnInit {
     public loadingController: LoadingController,
     public rutina: RutinaProvider,
     public Aroute: ActivatedRoute,
-    public navCtrl:NavController
+    public navCtrl:NavController,
+    private clipboard:Clipboard
   ) {
     this.myForm = this.formb.group({
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
@@ -55,9 +58,8 @@ export class CrearPage implements OnInit {
       let loadding = this.presentLoading('Guardando datos...')
       let _idejer=''
       this.rutina.crearEjercicio(this.idtipo, this.myForm.value)
-        .then(()=> this.rutina.verUltimoIdEjercicio(this.idtipo))
         .then(idejer=>{
-          _idejer=idejer[0].idejercicios
+          _idejer=idejer
           let aux=[]
           for(let i in this.imgCropUrl)
             aux.push(this.fotos.subirimagen(this.imgCropUrl[i].blob,'ejercicios',i))
@@ -104,4 +106,10 @@ export class CrearPage implements OnInit {
     await loading.present();
     return loading
   }
+  pegar(){
+     cordova.plugins.clipboard.paste((text)=> { 
+       this.myForm.get('linkyoutube').setValue(text)
+      })
+  }
+  
 }

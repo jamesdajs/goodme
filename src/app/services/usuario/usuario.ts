@@ -14,6 +14,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 
 import { map } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Configurl } from '../config';
 
 //import * as firebase from "firebase";
 /*
@@ -253,11 +254,11 @@ verSitienenDatos() {
       })
     })
   }*/
-  urlInsert = "http://localhost/goodmeServe/public/usuarios"
-  urlSelect = "http://localhost/goodmeServe/public/usuarios/select"
-  urlUpdate = "http://localhost/goodmeServe/public/usuarios/modificar"
-  urlDelete = "http://localhost/goodmeServe/public/usuarios/eliminar"
-  urlsql = "http://localhost/goodmeServe/public/consultas/crear"
+  urlInsert = Configurl.url + "usuarios"
+  urlSelect = Configurl.url + "usuarios/select"
+  urlUpdate = Configurl.url + "usuarios/modificar"
+  urlDelete = Configurl.url + "usuarios/eliminar"
+  urlsql = Configurl.url +"consultas/crear"
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'X-CSRF-TOKEN': "token",
@@ -297,13 +298,20 @@ verSitienenDatos() {
     return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
-  crearOupdatedatosInstructor(Datos, id) {
+  creardatosInstructor(Datos:{descripcion:string,direccion:string,lat:string,lng:string,zoom:string}, id) {
     let sql = `INSERT INTO datos_ins (iddatos_ins,descripcion,direccion, lat, lng,zoom)
-     VALUES(?, ?, ?,?,?,?) 
-     ON DUPLICATE KEY UPDATE descripcion=?,direccion=?, lat=?, lng=?,zoom=?`
+     VALUES(?, ?, ?,?,?,?) `
     let values = [
-      id, Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom,
-      Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom
+      id, Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom
+    ]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  modificardatosInstructor(Datos:{descripcion:string,direccion:string,lat:string,lng:string,zoom:string}, id) {
+    let sql = ` 
+     UPDATE datos_ins set descripcion=?,direccion=?, lat=?, lng=?,zoom=? where iddatos_ins=?` 
+    let values = [
+      Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom,id
     ]
     return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()

@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CrearPage } from './crear.page';
-//imporstpara fotos
+import { ModmiperfilPage } from './modmiperfil.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CrearPage
+    component: ModmiperfilPage
   }
 ];
 
@@ -21,13 +20,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule 
-
+    ReactiveFormsModule
+    
   ],
-  declarations: [CrearPage]
-  ,
-  providers:[
-    FormBuilder,
-  ]
+  declarations: [ModmiperfilPage]
 })
-export class CrearPageModule {}
+export class ModmiperfilPageModule {}

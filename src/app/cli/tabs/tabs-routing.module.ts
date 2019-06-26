@@ -97,6 +97,11 @@ const routes: Routes = [
               path: '',
               loadChildren: '../miperfil/miperfil.module#MiperfilPageModule'
             },
+            {
+              path: 'modmiperfil',
+              loadChildren: '../modmiperfil/modmiperfil.module#ModmiperfilPageModule'
+            },
+
           ]
         },
         {

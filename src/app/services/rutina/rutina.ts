@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "angularfire2/firestore";
 import { Observable } from 'rxjs/Observable';
-
-import {AngularFireAuth} from '@angular/fire/auth';
+import { Configurl} from '../config'
+import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 /*
@@ -16,9 +16,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class RutinaProvider {
 
   constructor(private db: AngularFirestore,
-    private auth:AngularFireAuth,
-    private http:HttpClient
-    ) {
+    private auth: AngularFireAuth,
+    private http: HttpClient
+  ) {
     console.log('Hello RutinaProvider Provider');
   }
   /*
@@ -88,120 +88,162 @@ export class RutinaProvider {
                       .where("idejercicio","==",keyejer)
     return this.getcollitemquery("rutina_ejer",query)
   }*/
-  url='http://localhost/goodmeServe/public/'
-  urlInsert=this.url+"usuarios"
-  urlSelect=this.url+"usuarios/select"
-  urlUpdate=this.url+"usuarios/modificar"
-  urlDelete=this.url+"usuarios/eliminar"
-  headers= new HttpHeaders({
-    'Content-Type':  'application/json',
-    'X-CSRF-TOKEN':"token",
-    'Authorization':"token"
+  urlInsert = Configurl.url + "usuarios"
+  urlSelect = Configurl.url + "usuarios/select"
+  urlUpdate = Configurl.url + "usuarios/modificar"
+  urlDelete = Configurl.url + "usuarios/eliminar"
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'X-CSRF-TOKEN': "token",
+    'Authorization': "token"
   })
-    //tipo ejercicios
-    crearTipoEjercicio(idusu,nombre):Promise<void>{
-      let sql="INSERT into  tipo_ejercicios (idusuario,nombre) VALUES (?,?)"
-      let values=[idusu,nombre]
-      return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
+  //tipo ejercicios
+  crearTipoEjercicio(idusu, nombre): Promise<void> {
+    let sql = "INSERT into  tipo_ejercicios (idusuario,nombre) VALUES (?,?)"
+    let values = [idusu, nombre]
+    return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    modTipoEjercicio(nombre,id){
-      let sql="update tipo_ejercicios set nombre = ? where idtipo_ejercicios = ?"
-      let values=[nombre,id]
-      return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
+  }
+  modTipoEjercicio(nombre, id) {
+    let sql = "update tipo_ejercicios set nombre = ? where idtipo_ejercicios = ?"
+    let values = [nombre, id]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    eliminarTipoEjercicio(idtipo){
-      let sql="DELETE FROM tipo_ejercicios WHERE idtipo_ejercicios = ?"
-      let values=[idtipo]
-      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+  }
+  eliminarTipoEjercicio(idtipo) {
+    let sql = "DELETE FROM tipo_ejercicios WHERE idtipo_ejercicios = ?"
+    let values = [idtipo]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    estadoTipoEjercicio(idtipo,estado){
-      let sql="update tipo_ejercicios set estado = ? where idtipo_ejercicios = ?"
-      let values=[estado,idtipo]
-      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+  }
+  estadoTipoEjercicio(idtipo, estado) {
+    let sql = "update tipo_ejercicios set estado = ? where idtipo_ejercicios = ?"
+    let values = [estado, idtipo]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    listarTipoEjercicio(idusu){
-      let sql="select * from tipo_ejercicios where idusuario=?"
-      let values=[idusu]
-      return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+  }
+  listarTipoEjercicio(idusu) {
+    let sql = "select * from tipo_ejercicios where idusuario=?"
+    let values = [idusu]
+    return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    //ejercicicos
-    verUltimoIdEjercicio(idtipoejer){
-      let sql='SELECT idejercicios FROM `ejercicios` WHERE id_tipoejercicio=? ORDER BY idejercicios DESC LIMIT 1'
-      let values=[idtipoejer]
-      return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+  }
+  //ejercicicos
+  verUltimoIdEjercicio(idtipoejer) {
+    let sql = 'SELECT idejercicios FROM `ejercicios` WHERE id_tipoejercicio=? ORDER BY idejercicios DESC LIMIT 1'
+    let values = [idtipoejer]
+    return this.http.post<any>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    crearEjercicio(idtipo,datos):Promise<void>{
-      let sql="INSERT into  ejercicios (id_tipoejercicio,nombre,descripcion,instrucciones,linkyoutube) VALUES (?,?,?,?,?)"
-      let values=[idtipo,datos.nombre,datos.descripcion,datos.instrucciones,datos.linkyoutube]
-      return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
+  }
+  crearEjercicio(idtipo, datos) {
+    let sql = "INSERT into  ejercicios (id_tipoejercicio,nombre,descripcion,instrucciones,linkyoutube) VALUES (?,?,?,?,?)"
+    let values = [idtipo, datos.nombre, datos.descripcion, datos.instrucciones, datos.linkyoutube]
+    return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    crearImagenEjercicio(idejer:string,datos:{nombre:string,url:string}):Promise<void>{
-      let sql="INSERT into  fotos_ejercicios (nombre,url,id_ejercicio) VALUES (?,?,?)"
-      let values=[datos.nombre,datos.url,idejer]
-      return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
+  }
+  crearImagenEjercicio(idejer: string, datos: { nombre: string, url: string }): Promise<void> {
+    let sql = "INSERT into  fotos_ejercicios (nombre,url,id_ejercicio) VALUES (?,?,?)"
+    let values = [datos.nombre, datos.url, idejer]
+    return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    eliminarImagenEjercicio(idFotoejer){
-      let sql="DELETE FROM fotos_ejercicios WHERE idfotos_ejercicios = ?"
-      let values=[idFotoejer]
-      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+  }
+  eliminarImagenEjercicio(idFotoejer) {
+    let sql = "DELETE FROM fotos_ejercicios WHERE idfotos_ejercicios = ?"
+    let values = [idFotoejer]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    estadoEjercicio(idtipo,estado){
-      let sql="update ejercicios set estado = ? where idejercicios = ?"
-      let values=[estado,idtipo]
-      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+  }
+  estadoEjercicio(idtipo, estado) {
+    let sql = "update ejercicios set estado = ? where idejercicios = ?"
+    let values = [estado, idtipo]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    modificarEjercicio(idejer:string,datos){
-      let sql="update ejercicios set nombre = ? ,descripcion=?,instrucciones=?,linkyoutube=? where idejercicios = ?"
-      let values=[datos.nombre,datos.descripcion,datos.instrucciones,datos.linkyoutube,idejer]
-      return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
+  }
+  modificarEjercicio(idejer: string, datos) {
+    let sql = "update ejercicios set nombre = ? ,descripcion=?,instrucciones=?,linkyoutube=? where idejercicios = ?"
+    let values = [datos.nombre, datos.descripcion, datos.instrucciones, datos.linkyoutube, idejer]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    modThompbailEjercicio(idejer:string,url:string){
-      let sql="update ejercicios set miniatura = ? where idejercicios = ?"
-      let values=[url,idejer]
-      return this.http.post(this.urlUpdate,{sql:sql,values:values},{headers:this.headers})
+  }
+  modThompbailEjercicio(idejer: string, url: string) {
+    let sql = "update ejercicios set miniatura = ? where idejercicios = ?"
+    let values = [url, idejer]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    eliminarEjercicio(idtipo){
-      let sql="DELETE FROM tipo_ejercicios WHERE idtipo_ejercicios = ?"
-      let values=[idtipo]
-      return this.http.post(this.urlDelete,{sql:sql,values:values},{headers:this.headers})
+  }
+  //falta eliminar ejercicios
+  eliminarEjercicio(idtipo) {
+    let sql = "DELETE FROM tipo_ejercicios WHERE idtipo_ejercicios = ?"
+    let values = [idtipo]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    listarEjercicio(idtipo,estado){
-      let sql="select * from ejercicios where id_tipoejercicio=? and estado=?"
-      let values=[idtipo,estado]
-      return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
-    }
-    listarImagenesEjercicios(idejer){
-      let sql="select * from fotos_ejercicios where id_ejercicio=? "
-      let values=[idejer]
-      return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+  }
+  listarEjercicio(idtipo, estado) {
+    let sql = "select * from ejercicios where id_tipoejercicio=? and estado=?"
+    let values = [idtipo, estado]
+    return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+  }
+  listarImagenesEjercicios(idejer) {
+    let sql = "select * from fotos_ejercicios where id_ejercicio=? "
+    let values = [idejer]
+    return this.http.post<[]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    //ds
+  }
+  //rutinas
 
-
-    verUsuarioIDfb(idfb):Promise<any>{
-      let sql="select * from usuarios where idfacebook=?"
-      let values=[idfb]
-      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+  verUltimoIdrutina(idusu) {
+    let sql = 'SELECT idrutinas FROM rutinas WHERE idusuario=? ORDER BY idrutinas DESC LIMIT 1'
+    let values = [idusu]
+    return this.http.post<any>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
-    verUsuarioIDdb(id):Promise<any>{
-      let sql="select * from usuarios where idusuarios=?"
-      let values=[id]
-      return this.http.post(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+  }
+  crearRutinaDefecto(idusu, datos): Promise<void> {
+    let sql = "INSERT into  rutinas (tipo,nombre,descripcion,idusuario) VALUES (?,?,?,?)"
+    let values = ['d', datos.nombre, datos.descripcion, idusu]
+    return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
-    }
+  }
+  listarRutinasDefecto(idusu, estado) {
+    let sql = "select * from rutinas where idusuario=? and estado=?"
+    let values = [idusu, estado]
+    return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    .toPromise()
+  }
+  listarEjerciciosporRutinas(idrut) {
+    let sql = "select e.* from ejercicios e, rut_ejer r where r.id_ejercicio=e.idejercicios and r.id_rutina=?"
+    let values = [idrut]
+    return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    .toPromise()
+  }
+  listaridejerrut(idrut) {
+    let sql = "select r.* from ejercicios e, rut_ejer r where r.id_ejercicio=e.idejercicios and r.id_rutina=?"
+    let values = [idrut]
+    return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    .toPromise()
+  }
+  crearSetRutina_Ejer(idrut_ejer, datos): Promise<void> {
+    let sql = "INSERT into  set_rutejer (id_rutejer,peso,repeticiones,tiempo) VALUES (?,?,?,?)"
+    let values = [idrut_ejer, datos.peso,datos.repeticiones,datos.tiempo]
+    return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  crearRutina_Ejer(idrut, idejer): Promise<void> {
+    let sql = "INSERT into  rut_ejer (id_rutina,id_ejercicio) VALUES (?,?)"
+    let values = [idrut, idejer]
+    return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  
+  verUsuarioIDfb(idfb): Promise<any> {
+    let sql = "select * from usuarios where idfacebook=?"
+    let values = [idfb]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  verUsuarioIDdb(id): Promise<any> {
+    let sql = "select * from usuarios where idusuarios=?"
+    let values = [id]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
 }

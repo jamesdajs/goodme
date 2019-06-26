@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CrearPage } from './crear.page';
-//imporstpara fotos
+import { ListaPage } from './lista.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CrearPage
+    component: ListaPage
   }
 ];
 
@@ -20,14 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule 
-
+    RouterModule.forChild(routes)
   ],
-  declarations: [CrearPage]
-  ,
-  providers:[
-    FormBuilder,
-  ]
+  declarations: [ListaPage]
 })
-export class CrearPageModule {}
+export class ListaPageModule {}

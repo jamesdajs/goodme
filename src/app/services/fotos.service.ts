@@ -5,7 +5,7 @@ import { File } from '@ionic-native/file/ngx';
 import { finalize } from 'rxjs/operators';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { resolve, reject } from 'q';
+import { Configurl } from './config';
 
 @Injectable({
 	providedIn: 'root'
@@ -98,9 +98,9 @@ export class FotosService {
 		})
 	}
 	headers = new HttpHeaders()
-	urlsaveImg = "http://localhost/goodmeServe/public/usuarios/saveimg"
-	urlupdateImg = "http://localhost/goodmeServe/public/usuarios/updateimg"
-	urldeleteImg = "http://localhost/goodmeServe/public/usuarios/deleteimg"
+	urlsaveImg = Configurl.url +"usuarios/saveimg"
+	urlupdateImg = Configurl.url +"usuarios/updateimg"
+	urldeleteImg = Configurl.url +"usuarios/deleteimg"
 	subirimagen(foto: Blob, carpeta: string, index: string):Promise<any> {
 		//this.headers=this.headers.append('Content-Type', 'multipart/form-data')
 		const formData = new FormData();

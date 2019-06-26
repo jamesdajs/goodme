@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
+import { Configurl} from '../config'
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
-
-  url='http://localhost/goodmeServe/public/'
+  url=Configurl.url
   urlInsert=this.url+"usuarios"
   urlSelect=this.url+"usuarios/select"
   urlUpdate=this.url+"usuarios/modificar"
@@ -20,11 +20,23 @@ export class CursoService {
   constructor(private http:HttpClient) { }
 
      //tipo ejercicios
-     crearcurso(datos,fecha,hora,semanas):Promise<void>{
+     crearcurso(datos,fecha,hora,semanas){
       let sql="INSERT into cursos (titulo,descripcion,costo,tipomoneda,fecha,hora,semanas) VALUES (?,?,?,?,?,?,?)"
       let values=[datos.titulo,datos.descripcion,datos.costo,datos.moneda,fecha,hora,semanas]
       return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
+    }
+    crearUsu_cur(idusu,idcurso,tipo){
+      let sql="INSERT into usu_cur (id_curso,id_usuario,tipo) VALUES (?,?,?)"
+      let values=[idcurso,idusu,tipo]
+      return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    crearImagenCurso(idcurso: string, datos: { nombre: string, url: string }) {
+      let sql = "INSERT into  fotos_curso (nombre,url,id_curso) VALUES (?,?,?)"
+      let values = [datos.nombre, datos.url, idcurso]
+      return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
+        .toPromise()
     }
 
     //listar cursos
