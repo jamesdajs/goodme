@@ -341,12 +341,41 @@ verSitienenDatos() {
   }
 
   guardarhorario(idusu,cant,dia,hi,hf) {
-    console.log("servicio "+idusu+" "+cant+" "+dia+" "+hi+" "+hf);
-    
     let sql = '', values = []
     sql = "INSERT into horarios (id_usuarios,cantidad,dia,hora_ini,hora_fin) VALUES (?,?,?,?,?)"
     values = [idusu,cant,dia,hi,hf]
     return this.http.post(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+
+  //RECUPERAR HORARIO DE USUARIO
+  mishorarios(id):Promise<any> {
+    let sql = "select * from horarios where id_usuarios=? "
+    let values = [id]
+    return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.headers })
+      .toPromise()
+  }
+
+  modificarhorario(cantidad,horai,horaf,id) {
+    let sql = "update horarios set cantidad=?,hora_ini=?,hora_fin=? where idhorarios = ?"
+    let values = [cantidad,horai,horaf,id]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+
+  //ELIMINAR HORARIO
+  eliminarhorario(id){
+    let sql = "delete from horarios where idhorarios=?"
+    let values = [id]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+
+  //verifica si existe un alumno con este horario
+  verificarhorario(id):Promise<any>{
+    let sql = "select * from registro_horarios where id_horario=?"
+    let values = [id]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
 }

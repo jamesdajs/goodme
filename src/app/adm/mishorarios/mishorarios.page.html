@@ -16,7 +16,7 @@
  
     <ion-list *ngFor="let h of horario" no-lines>
       <ion-list-header>
-        {{h.nombre}}
+        {{dias[h.nombre]}}
       </ion-list-header>
       <div *ngFor="let p of h.horas; let i = index">
         <ion-row no-padding>
