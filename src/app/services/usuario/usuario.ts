@@ -259,12 +259,11 @@ verSitienenDatos() {
   urlUpdate = Configurl.url + "usuarios/modificar"
   urlDelete = Configurl.url + "usuarios/eliminar"
   urlsql = Configurl.url +"consultas/crear"
+
+    headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    })
   
-  getheaders(){
-    let headers = new HttpHeaders()
-    headers = headers.append("Content-Type", "application/json");
-    return headers
-  }
   guardarusuario(Datos) {
     let sql = '', values = []
     if (Datos.correo) {
@@ -275,7 +274,7 @@ verSitienenDatos() {
       values = [Datos.id, Datos.name, Datos.foto]
     }
 
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders()})
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers})
       .toPromise()
   }
   actualizarusuario(Datos) {
@@ -289,13 +288,13 @@ verSitienenDatos() {
       values = [Datos.name, Datos.foto, Datos.id]
     }
 
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders() })
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
   actualizarusuariodatosnormales(Datos, id) {
     let sql = "update usuarios set fechanac = ?,peso = ?,altura=?,genero=?,telefono=?,correo=? where idusuarios = ?"
     let values = [Datos.fechanac, Datos.peso, Datos.altura, Datos.genero, Datos.telefono,Datos.correo, id]
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders()})
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers})
       .toPromise()
   }
   creardatosInstructor(Datos:{descripcion:string,direccion:string,lat:string,lng:string,zoom:string}, id) {
@@ -304,7 +303,7 @@ verSitienenDatos() {
     let values = [
       id, Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom
     ]
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders() })
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
   modificardatosInstructor(Datos:{descripcion:string,direccion:string,lat:string,lng:string,zoom:string}, id) {
@@ -313,13 +312,13 @@ verSitienenDatos() {
     let values = [
       Datos.descripcion, Datos.direccion, Datos.lat, Datos.lng, Datos.zoom,id
     ]
-    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.getheaders() })
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
   listarusuarios() {
     let sql = "select * from usuarios"
     let values = []
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders() })
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
   verUsuarioIDfb(idfb): Promise<any> {
@@ -331,20 +330,59 @@ verSitienenDatos() {
   verUsuarioIDdbalumno(id): Promise<any> {
     let sql = "select * from usuarios where idusuarios=? "
     let values = [id]
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders() })
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers})
       .toPromise()
   }
   verUsuarioIDdbinstructor(id):Promise<any> {
     let sql = "select * from usuarios where idusuarios=? "
     let values = [id]
-    return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.getheaders() })
+    return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.headers})
       .toPromise()
     //return this.http.post<[]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
   }
   consultas() {
     let sql = "ALTER TABLE datos_ins ADD COLUMN direccion varchar(100) not null"
     let values = []
-    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.getheaders() })
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+
+  guardarhorario(idusu,cant,dia,hi,hf) {
+    let sql = '', values = []
+    sql = "INSERT into horarios (id_usuarios,cantidad,dia,hora_ini,hora_fin) VALUES (?,?,?,?,?)"
+    values = [idusu,cant,dia,hi,hf]
+    return this.http.post(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+
+  //RECUPERAR HORARIO DE USUARIO
+  mishorarios(id):Promise<any> {
+    let sql = "select * from horarios where id_usuarios=? "
+    let values = [id]
+    return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.headers })
+      .toPromise()
+  }
+
+  modificarhorario(cantidad,horai,horaf,id) {
+    let sql = "update horarios set cantidad=?,hora_ini=?,hora_fin=? where idhorarios = ?"
+    let values = [cantidad,horai,horaf,id]
+    return this.http.post(this.urlUpdate, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+
+  //ELIMINAR HORARIO
+  eliminarhorario(id){
+    let sql = "delete from horarios where idhorarios=?"
+    let values = [id]
+    return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+
+  //verifica si existe un alumno con este horario
+  verificarhorario(id):Promise<any>{
+    let sql = "select * from registro_horarios where id_horario=?"
+    let values = [id]
+    return this.http.post(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
 }

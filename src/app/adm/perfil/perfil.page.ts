@@ -79,6 +79,8 @@ export class PerfilPage implements OnInit {
 
     await alert.present();
   }
+
+  //FUNCION CAMBIA DE ROL A ALUMNO
   changeAlumno(){
     this.storage.set('rol', "alumno")
     .then(()=>{
@@ -89,46 +91,11 @@ export class PerfilPage implements OnInit {
       this.navCtrl.navigateRoot(['/cli/miperfil'])
       }) 
   }
-  jsonData = {
-    numbers: [
-     { description: "1" },
-      { description: "2" },
-      { description: "3" }
-    ],
-    fruits: [
-      { description: "Apple" },
-      { description: "Banana" },
-      { description: "Tangerine" }
-    ],
-    firstNames: [
-      { name: "Fred", id: '1' },
-      { name: "Jane", id: '2' },
-      { name: "Bob", id: '3' },
-      { name: "Earl", id: '4' },
-      { name: "Eunice", id: '5' }
-    ],
-    lastNames: [
-      { name: "Johnson", id: '100' },
-      { name: "Doe", id: '101' },
-      { name: "Kinishiwa", id: '102' },
-      { name: "Gordon", id: '103' },
-      { name: "Smith", id: '104' }
-    ]
+
+
+  //REDIRECCIONA PAGINA HORARIOS
+  mishorarios(){
+    this.navCtrl.navigateForward(["/adm/perfil/mishorarios"])
   }
-  
-  
-  // basic number selection, index is always returned in the result
-   selectANumber() {
-     this.selector.show({
-       title: "How Many?",
-       items: [
-         this.jsonData.numbers
-       ],
-     }).then(
-       result => {
-         console.log(result[0].description + ' at index: ' + result[0].index);
-       },
-       err => console.log('Error: ', err)
-       );
-   }
+
 }
