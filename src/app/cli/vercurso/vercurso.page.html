@@ -10,8 +10,8 @@
 <ion-content class="ion-no-padding" full-screem [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <div>
     <ion-slides pager>
-        <ion-slide>
-          <img src="../../../assets/imgs/defecto2.jpeg" alt="">
+        <ion-slide *ngFor="let f of datos.fotos">
+          <img [src]="f.url" alt="">
         </ion-slide>
       </ion-slides>
     </div> 
@@ -39,7 +39,10 @@
             <ion-icon slot="end" name="md-arrow-dropright"></ion-icon>
       </ion-item>
       <ion-item *ngIf="datos.telefono!==null">
-        <ion-label> 60269038</ion-label>
+        <ion-label> {{datos.telefono}}</ion-label>
         <ion-icon slot="end" name="logo-whatsapp"></ion-icon>
       </ion-item>
+      <ion-button (click)="inscribirme()" fill="outline" shape="block">
+        Tomar curso
+      </ion-button>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import { IonSegment, IonSlides ,ToastController} from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alumnosdetalle',
@@ -25,10 +26,16 @@ export class AlumnosdetallePage implements OnInit {
       title: "Third Slide"
     }
   ];
-  constructor(public toastCtrl:ToastController) { }
+  datos
+  constructor(public toastCtrl:ToastController,
+    private router :Router
+    ) {
+      this.datos=this.router.getCurrentNavigation().extras
+      console.log(this.datos);
+      
+    }
    //----------------funciones tab slide------------------
    onSegmentChanged(segmentButton) {
-    console.log("Segment changed to", segmentButton.detail.value);
     this.select=segmentButton.detail.value;
      const selectedIndex = this.slides.findIndex((slide) => {
        return slide.id === segmentButton.detail.value;
@@ -37,9 +44,13 @@ export class AlumnosdetallePage implements OnInit {
    }
  
    onSlideChanged(event) {
-     console.log('Slide changed',this.select);
-     this.selectedSegment = this.select;
-   }
+    
+    this.slider.getActiveIndex()
+    .then(num=>{
+      this.selectedSegment=this.slides[num].id
+    })
+    
+  }
    //--------------end funciones tab slide--------------*/
 
   ngOnInit() {

@@ -20,11 +20,11 @@
 	<p>Mis Alumnos</p>
 	<hr>
 	<ion-list>
-			<ion-item class="ion-no-padding" (click)="veralumno()">
+			<ion-item *ngFor="let item of alumnos" class="ion-no-padding" (click)="veralumno(item)">
 				<ion-avatar item-start>
-					<img src="../../../assets/imgs/fotografo.jpg" class="img-alumnos">
+					<img [src]="item.foto" class="img-alumnos">
 				</ion-avatar>
-				<ion-label class="label-alumnos">item.fullnamecli</ion-label>
+				<ion-label class="label-alumnos">{{item.fullname}}</ion-label>
 			</ion-item>
 	</ion-list>
 </ion-content>
