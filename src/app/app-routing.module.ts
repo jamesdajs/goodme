@@ -9,6 +9,8 @@ const routes: Routes = [
   { path: 'cli', loadChildren: './cli/tabs/tabs.module#TabsPageModule', canActivate: [AuthGuardService] },
   //{ path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
   { path: 'alumnosdetalle', loadChildren: './adm/alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule' },
+  { path: 'pagosnet', loadChildren: './cli/pagosnet/pagosnet.module#PagosnetPageModule' },
+  
   
  
   

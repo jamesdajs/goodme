@@ -38,4 +38,8 @@ export class VercursoPage implements OnInit {
     this.routes.navigate(['/cli/inicio/vercurso/verinstructor'],id)
   }
 
+  verHorarios(id){
+    this.routes.navigate(['/cli/inicio/vercurso/selecthorario'],id)
+  }
+
 }

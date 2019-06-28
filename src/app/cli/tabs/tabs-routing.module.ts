@@ -42,12 +42,17 @@ const routes: Routes = [
                   path: 'verinstructor',
                   loadChildren: '../ver-instructor/ver-instructor.module#VerInstructorPageModule'
                 },
+                {
+                  path: 'selecthorario',
+                  loadChildren: '../selecthorario/selecthorario.module#SelecthorarioPageModule'
+                },
+
 
               ]
             },
             {
               path: 'verinstructorI',
-              children:[
+              children: [
                 {
                   path: '',
                   loadChildren: '../ver-instructor/ver-instructor.module#VerInstructorPageModule'
@@ -56,6 +61,7 @@ const routes: Routes = [
                   path: 'vercursop',
                   loadChildren: '../vercurso/vercurso.module#VercursoPageModule'
                 },
+
               ]
             },
             {
