@@ -23,12 +23,7 @@
             <ion-item>
               <ion-label>Cantidad</ion-label>
               <ion-select [(ngModel)]="p.cantidad">
-                <ion-select-option value="1">1</ion-select-option>
-                <ion-select-option value="2">2</ion-select-option>
-                <ion-select-option value="3">3</ion-select-option>
-                <ion-select-option value="4">4</ion-select-option>
-                <ion-select-option value="5">5</ion-select-option>
-                <ion-select-option value="6">6</ion-select-option>
+                <ion-select-option *ngFor="let c of cantidad" [value]="c.name">{{c.name}}</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-col>

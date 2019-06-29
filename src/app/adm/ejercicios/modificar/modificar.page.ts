@@ -4,7 +4,7 @@ import { FotosService } from 'src/app/services/fotos.service';
 import { ToastController, LoadingController, NavController, ActionSheetController } from '@ionic/angular';
 import { RutinaProvider } from 'src/app/services/rutina/rutina';
 import { ActivatedRoute } from '@angular/router';
-
+declare var cordova:any
 @Component({
   selector: 'app-modificar',
   templateUrl: './modificar.page.html',
@@ -54,15 +54,18 @@ export class ModificarPage implements OnInit {
     this.rutina.listarImagenesEjercicios(this.idejer)
       .then(data => this.imagenes = data)
   }
-  blobktombal
+  blobthumbnail
   seleccionarImagenes() {
     this.fotos.escogerImagenes(5-this.imagenes.length)
       .then(urlarray => {
         this.imgCropUrl = urlarray
-        return this.fotos.createThumbnail(urlarray[0].base64)
+        let aux=[]
+        for(let i in urlarray)
+          aux.push(this.fotos.createThumbnail(urlarray[i].base64))
+        return Promise.all(aux)
       })
-      .then(data => {
-        this.blobktombal = data.blob
+      .then(data=>{
+        this.blobthumbnail=data
         //alert(JSON.stringify(data.size))
       })
       .catch(err => console.log(err))
@@ -83,7 +86,7 @@ export class ModificarPage implements OnInit {
         .then((array) => {
           let aux = []
           for (let i in array)
-            aux.push(this.rutina.crearImagenEjercicio(this.idejer, { nombre: array[i].name, url: array[i].dir + array[i].name }))
+            aux.push(this.rutina.crearImagenEjercicio(this.idejer, { nombre: array[i].name, url: array[i].dir + array[i].name ,thumb:'falta'}))
           return Promise.all(aux)
         })
         //para crear thupbail
@@ -172,4 +175,9 @@ export class ModificarPage implements OnInit {
       })
       .catch(err=>console.log(err))
   }
+  pegar(){
+    cordova.plugins.clipboard.paste((text)=> { 
+      this.myForm.get('linkyoutube').setValue(text)
+     })
+ }
 }

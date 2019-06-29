@@ -25,10 +25,9 @@
         <ion-fab-button><ion-icon  name="add"></ion-icon></ion-fab-button>
       </ion-fab>
     <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
-        <ion-slide value="first"> 
-          <div  class="div-content">
-            <div *ngFor="let item of cursos; let i=index">
-                <ion-card >
+        <ion-slide value="first" id="myFixZone"> 
+
+                <ion-card *ngFor="let item of cursos; let i=index">
                     <ion-item>
                       <ion-avatar item-start>
                         <img class="img-alumno" [src]="item.foto">
@@ -40,9 +39,14 @@
                     </ion-item>
                     <div class="ion-no-padding">
                       <ion-slides pager >
-                          <ion-slide >
-                              <img src="../../../assets/imgs/defecto.jpeg" >
-                          </ion-slide>
+                          <ion-slide class="ion-no-padding" *ngIf="item.fotos.length==0; else blockelse">
+                              <img src="../../../assets/imgs/defecto.jpeg" width="100%">
+                            </ion-slide>
+                            <ng-template #blockelse>
+                                <ion-slide class="ion-no-padding" *ngFor="let foto of item.fotos">
+                                    <img [src]="foto.url" width="100%">
+                                  </ion-slide>
+                              </ng-template>
                       </ion-slides>
                     </div>
                     <ion-card-header class="padding-post-detail-title">
@@ -57,8 +61,6 @@
                     </ion-item>
                     </ion-card-content>
                 </ion-card>
-            </div>
-          </div>
         </ion-slide>
         <ion-slide value="second">
          <div class="div-content">
@@ -67,9 +69,14 @@
                     <ion-col size="4" *ngFor="let item of cursos; let i=index">
                       <div>
                           <ion-slides pager  >
-                              <ion-slide >
-                                  <img src="../../../assets/imgs/defecto.jpeg" (click)="opciones()">
-                              </ion-slide>
+                              <ion-slide class="ion-no-padding" *ngIf="item.fotos.length==0; else blockelse">
+                                  <img src="../../../assets/imgs/defecto.jpeg" width="100%">
+                                </ion-slide>
+                                <ng-template #blockelse>
+                                    <ion-slide class="ion-no-padding" *ngFor="let foto of item.fotos">
+                                        <img [src]="foto.url" width="100%">
+                                      </ion-slide>
+                                  </ng-template>
                           </ion-slides>
                       </div>
                     </ion-col>

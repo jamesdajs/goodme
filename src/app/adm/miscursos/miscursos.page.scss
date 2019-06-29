@@ -1,11 +1,8 @@
 ion-card{
-    display: flex;
-    flex-direction: column;
     margin-top: 0% !important;
     margin-left: 0% !important;
     margin-right: 0% !important;
     margin-bottom: 10px !important;
-    width: 100%
 }
 
 .img-alumno{
@@ -20,7 +17,8 @@ ion-card{
     padding: 0% !important
 }*/
 .swiper-slide {
-text-align: start !important;
+    text-align: start !important;
+    display: block;
 }
 
 .padding-post-detail{
@@ -45,4 +43,16 @@ ion-label{
 }
 .div-content{
     width: 100% !important
+}
+#myFixZone{
+    height:100% !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+img{
+    width: 100% !important;
+}
+ion-slides ,ion-slide{
+    height: 100% !important;
+
 }

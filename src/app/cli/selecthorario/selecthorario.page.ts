@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CursoService } from 'src/app/services/curso/curso.service';
 import { UsuarioProvider } from 'src/app/services/usuario/usuario';
+import { Storage } from '@ionic/storage';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-selecthorario',
@@ -9,27 +11,48 @@ import { UsuarioProvider } from 'src/app/services/usuario/usuario';
   styleUrls: ['./selecthorario.page.scss'],
 })
 export class SelecthorarioPage implements OnInit {
-  id
+  idcurso
+  idusu
+  idalumno
   dias = ["DOMINGO", 'LUNES', "MARTES", 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO']
   horario = []
   seleccionados=[]
   constructor(private routes:Router,
     private servicioCurso:CursoService,
-    private servicioUsuario:UsuarioProvider) {
-    this.id=this.routes.getCurrentNavigation().extras
-    console.log("id"+ this.id);
-
+    private servicioUsuario:UsuarioProvider,
+    public alertController: AlertController,
+    private route:ActivatedRoute,
+    private storage:Storage) {
+    //this.id=this.routes.getCurrentNavigation().extras
+    this.idcurso = this.route.snapshot.paramMap.get('idc')
+    this.idusu = this.route.snapshot.paramMap.get('idu')
+    console.log("id"+ this.idcurso);
+    this.recuperarhorario(this.idusu)
+    this.storage.get("idusuario")
+      .then(id => {
+        console.log(id)
+        this.idalumno = id
+        
+      })
    }
 
   ngOnInit() {
-
-    this.recuperarhorario(this.id)
   }
 
     //GUARDAR HOARIOS SELECCIONADOS
     horariosseleccionados(){
-      
-      
+      this.servicioCurso.crearUsu_cur(this.idalumno,this.idcurso,"i").then(resp=>{
+        for(let i in this.horario){
+          if(this.horario[i].selec){
+            this.servicioCurso.guardar_registro_horario(this.horario[i].selec,resp).then(resp=>{
+              console.log("guardo");
+            })
+          }else{
+            console.log("no guardo");
+            
+          }
+        }
+      })
      console.log(this.horario);
      
     }
@@ -69,6 +92,31 @@ export class SelecthorarioPage implements OnInit {
         }
         console.log(this.horario);
       })
+    }
+
+    async presentAlertConfirm() {
+      const alert = await this.alertController.create({
+        header: 'Horarios seleccionados!!',
+        message: 'Se guardaran tus horarios seleccionados',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Guardar',
+            handler: () => {
+              this.horariosseleccionados()
+              console.log('Confirm Okay');
+            }
+          }
+        ]
+      });
+    
+      await alert.present();
     }
 
 }

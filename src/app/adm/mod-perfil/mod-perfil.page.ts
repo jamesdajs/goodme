@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioProvider } from 'src/app/services/usuario/usuario';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, NavController } from '@ionic/angular';
 declare var google: any;
 @Component({
 	selector: 'app-mod-perfil',
@@ -37,15 +37,15 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
 		private geolocation: Geolocation,
 		private route: ActivatedRoute,
 		public toastController: ToastController,
-		private router: Router,
+		private navCtrl: NavController,
 		private user: UsuarioProvider,
 		public loadingController: LoadingController
 	) {
 		for (let key in this.datos)
-			this.datos[key] = !this.route.snapshot.paramMap.get(key) || this.route.snapshot.paramMap.get(key)==='null'? this.datos[key] : this.route.snapshot.paramMap.get(key)
+			this.datos[key] = !this.route.snapshot.paramMap.get(key)? this.datos[key] : this.route.snapshot.paramMap.get(key)
 
 		for (let key in this.datosins)
-			this.datosins[key] = this.route.snapshot.paramMap.get(key) == null ? '' : this.route.snapshot.paramMap.get(key)
+			this.datosins[key] = this.route.snapshot.paramMap.get(key)? '' : this.route.snapshot.paramMap.get(key)
 
 
 
@@ -91,14 +91,14 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
 		if (this.myForm.valid && this.myFormins.valid) {
 			let loading = this.presentLoading('Guardando datos')
 			Promise.all([
-				this.user.crearOupdatedatosInstructor(this.myFormins.value, this.id),
+				this.user.modificardatosInstructor(this.myFormins.value, this.id),
 				this.user.actualizarusuariodatosnormales(this.myForm.value, this.id)
 			])
 				.then(res => {
 					console.log(res);
 					loading.then(load => load.dismiss())
 
-					this.router.navigate(['/adm/perfil'])
+					this.navCtrl.back()
 
 				})
 				.catch(err => {
@@ -114,7 +114,7 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
 		// This code is necessary for browser
 		let latlng = {}
 		console.log(this.datosins)
-		if (this.datosins.lat == '') {
+		if (!this.datosins.lat ) {
 			let resp = await this.geolocation.getCurrentPosition()
 			latlng = { lat: resp.coords.latitude, lng: resp.coords.longitude }
 		} else {
@@ -123,13 +123,13 @@ export class ModPerfilPage implements OnInit, AfterViewInit {
 		let map
 		map = new google.maps.Map(document.querySelector('#mapMOD'), {
 			center: latlng,// this.datosins.nombregym+' '+this.datosins.ciudad+' '+this.datosins.departamento,
-			zoom: this.datosins.lat != '' ? parseInt(this.datosins.zoom) : 12,
+			zoom: this.datosins.lat ? parseInt(this.datosins.zoom) : 12,
 			disableDefaultUI: true
 		});
 		console.log(latlng)
 		var marker = new google.maps.Marker(
 			{
-				position: this.datosins.lat != '' ? latlng : '',
+				position: this.datosins.lat?"": latlng,
 				map: map,
 			}
 		)

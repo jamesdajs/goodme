@@ -15,6 +15,7 @@ export class MishorariosPage implements OnInit {
   dias = ["DOMINGO", 'LUNES', "MARTES", 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO']
   horario = []
   idusuario
+  cantidad=[]
   constructor(private storage: Storage,
     private servicioUsuario: UsuarioProvider,
     public navCtrl: NavController,
@@ -23,7 +24,8 @@ export class MishorariosPage implements OnInit {
       this.idusuario = id
       this.recuperarhorario(id)
     })
-
+    for(let i=0;i<6;i++)
+      this.cantidad.push({name:i})
 
   }
 

@@ -27,7 +27,7 @@ const routes: Routes = [
   declarations: [CrearPage]
   ,
   providers:[
-    FormBuilder
+    FormBuilder,
   ]
 })
 export class CrearPageModule {}

@@ -47,9 +47,20 @@ export class MiscursosPage implements OnInit {
   listarcursos() {
     this.storage.get("idusuario")
     .then(id => {
-      console.log('id usu '+id)
       this.idusu = id
-      this.servicesCurso.miscursospublicados(1,parseInt(this.idusu)).subscribe(data=>this.cursos=data)
+      this.servicesCurso.miscursospublicados(1,parseInt(this.idusu))
+      .subscribe(data=>{
+        data.forEach(item=>{
+          item.idcursos
+          item['fotos']=[]
+          this.servicesCurso.listarfotos(item.idcursos)
+          .then(res=>{
+            item['fotos']=res
+          })
+        })
+        this.cursos=data
+      
+      })
     })
     console.log('id usuario'+this.idusu);
   }
@@ -66,6 +77,12 @@ export class MiscursosPage implements OnInit {
  
    onSlideChanged(event) {
      console.log('Slide changed',this.select);
+     
+     this.slider.getActiveIndex()
+     .then(num=>{
+       this.selectedSegment=this.slides[num].id
+      console.log(num);
+     })
      this.selectedSegment = this.select;
    }
    //--------------end funciones tab slide--------------*/

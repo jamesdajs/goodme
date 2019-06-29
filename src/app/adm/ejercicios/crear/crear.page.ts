@@ -5,6 +5,9 @@ import { ToastController, LoadingController, NavController } from '@ionic/angula
 import { finalize } from 'rxjs/operators';
 import { RutinaProvider } from 'src/app/services/rutina/rutina';
 import { ActivatedRoute } from '@angular/router';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { promise } from 'protractor';
+declare var cordova: any;
 @Component({
   selector: 'app-crear',
   templateUrl: './crear.page.html',
@@ -21,7 +24,8 @@ export class CrearPage implements OnInit {
     public loadingController: LoadingController,
     public rutina: RutinaProvider,
     public Aroute: ActivatedRoute,
-    public navCtrl:NavController
+    public navCtrl:NavController,
+    private clipboard:Clipboard
   ) {
     this.myForm = this.formb.group({
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
@@ -34,15 +38,18 @@ export class CrearPage implements OnInit {
 
   ngOnInit() {
   }
-  blobktombal
+  blobthumbnail
   seleccionarImagenes() {
     this.fotos.escogerImagenes(5)
       .then(urlarray => {
         this.imgCropUrl = urlarray
-        return this.fotos.createThumbnail(urlarray[0].base64)
+        let aux=[]
+        for(let i in urlarray)
+          aux.push(this.fotos.createThumbnail(urlarray[i].base64))
+        return Promise.all(aux)
       })
       .then(data=>{
-        this.blobktombal=data.blob
+        this.blobthumbnail=data
         //alert(JSON.stringify(data.size))
       })
       .catch(err => console.log(err))
@@ -53,29 +60,37 @@ export class CrearPage implements OnInit {
 
     } else {
       let loadding = this.presentLoading('Guardando datos...')
-      let _idejer=''
+      let _idejer='',_resimg=[],_resthomb=[]
       this.rutina.crearEjercicio(this.idtipo, this.myForm.value)
-        .then(()=> this.rutina.verUltimoIdEjercicio(this.idtipo))
         .then(idejer=>{
-          _idejer=idejer[0].idejercicios
+          _idejer=idejer
           let aux=[]
           for(let i in this.imgCropUrl)
             aux.push(this.fotos.subirimagen(this.imgCropUrl[i].blob,'ejercicios',i))
           return Promise.all(aux)
         })
         .then((array)=>{
+          _resimg=array
           let aux=[]
-          for(let i in array)
-            aux.push(this.rutina.crearImagenEjercicio(_idejer,{nombre:array[i].name,url:array[i].dir+array[i].name}))
+          for(let i in this.blobthumbnail)
+            aux.push(this.fotos.subirimagen(this.blobthumbnail[i].blob,'ejercicios',"t_"+i))
           return Promise.all(aux)
         })
-        .then(()=>{
-          if(this.blobktombal)
-            return this.fotos.subirimagen(this.blobktombal,'ejercicios','5')
+        .then((array)=>{
+          _resthomb=array
+          let aux=[]
+          for(let i in array)
+            aux.push(this.rutina.crearImagenEjercicio(_idejer,
+              {
+                nombre:_resimg[i].name,
+                url:_resimg[i].dir+_resimg[i].name,
+                thumb:array[i].dir+array[i].name
+              }))
+          return Promise.all(aux)
         })
+        
         .then(res=>{
-          if(res)
-            return this.rutina.modThompbailEjercicio(_idejer,res.dir+res.name)})
+            return this.rutina.modThompbailEjercicio(_idejer,_resthomb[0].dir+_resthomb[0].name)})
         .then(()=> loadding)
         .then(load=>{
           load.dismiss()
@@ -104,4 +119,21 @@ export class CrearPage implements OnInit {
     await loading.present();
     return loading
   }
+  pegar(){
+     cordova.plugins.clipboard.paste((text)=> { 
+       this.myForm.get('linkyoutube').setValue(text)
+      })
+  }
+  cargandoImagenejem(file){
+    this.fotos.subirimagen(file[0],'ejercicios','0')
+    .then(res=>{
+      console.log(res);
+      
+    })
+    .catch(err=>{
+      console.log(err);
+      
+    })
+  }
+  
 }

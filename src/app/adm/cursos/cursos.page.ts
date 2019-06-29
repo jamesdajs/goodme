@@ -18,5 +18,6 @@ export class CursosPage implements OnInit {
 
   ngOnInit() {
   }
+  
 
 }

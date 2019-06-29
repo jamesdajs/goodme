@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { UsuarioProvider } from 'src/app/services/usuario/usuario';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
+import { AuthFacebookProvider } from 'src/app/services/authfacebok/authfacebok';
+
 
 @Component({
   selector: 'app-perfil',
@@ -15,10 +17,12 @@ export class PerfilPage implements OnInit {
   verdatos = true
   id
   constructor(
-    private router: Router,
     private storage: Storage,
     private user: UsuarioProvider,
     public alertController: AlertController,
+    private navCtrl:NavController,
+    private selector:WheelSelector,
+    private logfb:AuthFacebookProvider
 
   ) {
 
@@ -35,13 +39,13 @@ export class PerfilPage implements OnInit {
 
   }
   modperfil() {
-    this.router.navigate(["/adm/perfil/mod-perfil", this.datos[0]])
+    this.navCtrl.navigateForward(["/adm/perfil/mod-perfil", this.datos[0]])
   }
   cargardatos(id) {
-    this.user.verUsuarioIDdbalumno(id)
+    this.user.verUsuarioIDdbinstructor(id)
       .then(datos => {
         console.log(datos[0])
-        this.genero = datos[0].genero != 'h' ? 'Mujer' : 'Hombre'
+        this.genero = datos[0].genero == 'm' ? 'Mujer' : 'Hombre'
 
         this.datos = datos
       })
@@ -64,7 +68,10 @@ export class PerfilPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.storage.clear()
-              .then(() => this.router.navigate(["/"]))
+              .then(() => {
+                this.logfb.logout()
+                this.navCtrl.navigateRoot(["/"])
+              })
           }
         }
       ]
@@ -81,12 +88,14 @@ export class PerfilPage implements OnInit {
     })
     .then(rol=>{
       console.log("rol before change:"+rol)
-      this.router.navigate(['/cli'])
+      this.navCtrl.navigateRoot(['/cli/miperfil'])
       }) 
   }
 
+
   //REDIRECCIONA PAGINA HORARIOS
   mishorarios(){
-    this.router.navigate(["/adm/perfil/mishorarios"])
+    this.navCtrl.navigateForward(["/adm/perfil/mishorarios"])
   }
+
 }

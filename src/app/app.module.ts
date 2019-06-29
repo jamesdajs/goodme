@@ -34,8 +34,11 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AuthGuardService } from './services/auth-guard.service';
+
 import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -62,10 +65,11 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     Facebook,
     ImagePicker,
     Crop,
-    WheelSelector,
     File,
     SocialSharing,
-    AuthGuardService
+    AuthGuardService,
+    Clipboard,
+    WheelSelector
 
   ],
   bootstrap: [AppComponent]
