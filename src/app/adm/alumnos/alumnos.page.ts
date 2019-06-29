@@ -31,5 +31,7 @@ export class AlumnosPage implements OnInit {
         console.log(res);
         this.alumnos=res
       })
+      .catch(err=>{console.log(err);
+      })
   }
 }

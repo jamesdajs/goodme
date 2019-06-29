@@ -197,9 +197,15 @@ export class RutinaProvider {
     return this.http.post<any>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
-  crearRutinaDefecto(idusu, datos) {
+  crearRutina(idusu, datos,tipo) {
     let sql = "INSERT into  rutinas (tipo,nombre,descripcion,idusuario) VALUES (?,?,?,?)"
-    let values = ['d', datos.nombre, datos.descripcion, idusu]
+    let values = [tipo, datos.nombre, datos.descripcion, idusu]
+    return this.http.post(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
+      .toPromise()
+  }
+  crearRut_Usu(idusu, idrut,datos) {
+    let sql = "INSERT into  rut_usu (id_usuario,id_rutina,fecha_ini,fecha_fin) VALUES (?,?,?,?)"
+    let values = [idusu, idrut, datos.fechaini, datos.fechafin]
     return this.http.post(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
@@ -209,9 +215,15 @@ export class RutinaProvider {
     return this.http.post(this.urlDelete, { sql: sql, values: values }, { headers: this.headers })
       .toPromise()
   }
-  listarRutinasDefecto(idusu, estado) {
-    let sql = "select * from rutinas where idusuario=? and estado=?"
-    let values = [idusu, estado]
+  listarRutinas(idusu, estado,tipo) {
+    let sql = "select * from rutinas where idusuario=? and tipo=? and estado=?"
+    let values = [idusu,tipo, estado]
+    return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
+    .toPromise()
+  }
+  listarRutinas_cli(idcli,estado) {
+    let sql = "select r.* from rutinas r,rut_usu ru where r.estado=? and r.idrutinas=ru.id_rutina and ru.id_usuario=?"
+    let values = [ estado,idcli]
     return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
     .toPromise()
   }

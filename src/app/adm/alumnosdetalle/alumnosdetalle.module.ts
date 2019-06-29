@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { AlumnosdetallePage } from './alumnosdetalle.page';
+import { ModalrutdefPage } from '../modalrutdef/modalrutdef.page';
+import { ModalrutdefPageModule } from '../modalrutdef/modalrutdef.module';
 
 const routes: Routes = [
   {
@@ -15,11 +17,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents:[
+    ModalrutdefPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ModalrutdefPageModule
   ],
   declarations: [AlumnosdetallePage]
 })

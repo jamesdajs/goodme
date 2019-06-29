@@ -41,7 +41,9 @@ export class CursoService {
 
     //listar cursos
     listarcursos(estado){
-      let sql="select c.*,u.idusuarios, u.fullname, u.foto, u.telefono from cursos c,usu_cur uc,usuarios u where c.estado=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo=0 order by c.fecha desc limit 3" 
+      let sql=`select c.*,u.idusuarios, u.fullname, u.foto, u.telefono 
+      from cursos c,usu_cur uc,usuarios u  
+      where c.estado=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo='c' order by c.fecha desc `
       let values=[estado]
       return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
     }
@@ -53,7 +55,7 @@ export class CursoService {
 
       //listar cursos
     miscursospublicados(estado,idusu){
-      let sql="select c.*,u.idusuarios, u.fullname, u.foto, u.telefono from cursos c,usu_cur uc,usuarios u where c.estado=? and uc.id_usuario=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo=0 order by c.fecha desc limit 3"
+      let sql="select c.*,u.idusuarios, u.fullname, u.foto, u.telefono from cursos c,usu_cur uc,usuarios u where c.estado=? and uc.id_usuario=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo='c' order by c.fecha desc limit 3"
       let values=[estado,idusu]
       return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
     }
@@ -66,9 +68,9 @@ export class CursoService {
     }
     listarMisAlumnos(idusu){
       let sql=`
-      SELECT * 
-      from usuarios u, usu_cur uc 
-      WHERE u.idusuarios=uc.id_usuario and uc.tipo='i' and 
+      SELECT u.*,uc.id_curso,c.titulo 
+      from usuarios u, usu_cur uc ,cursos c
+      WHERE u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo='i' and 
       uc.id_curso in (
         SELECT uc2.id_curso 
         from usu_cur uc2,usuarios u2 

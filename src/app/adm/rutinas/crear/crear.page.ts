@@ -4,6 +4,7 @@ import { ModalController, ToastController, NavController } from '@ionic/angular'
 import { ModaladdejerPage } from '../modaladdejer/modaladdejer.page';
 import { Storage } from '@ionic/storage';
 import { RutinaProvider } from 'src/app/services/rutina/rutina';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crear',
@@ -13,6 +14,11 @@ import { RutinaProvider } from 'src/app/services/rutina/rutina';
 export class CrearPage implements OnInit {
   myForm: FormGroup
   ejercicios = []
+  idalumno
+  personal={
+    fechaini:'',
+    fechafin:''
+  }
   constructor(
     private formb: FormBuilder,
     public modalController: ModalController,
@@ -20,11 +26,15 @@ export class CrearPage implements OnInit {
     public rutina:RutinaProvider,
     public toastController: ToastController,
     public navCtrl:NavController,
+    private arouter:ActivatedRoute
   ) {
     this.myForm = this.formb.group({
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
       descripcion: ['', [Validators.required, Validators.maxLength(200)]]
     });
+    this.idalumno=this.arouter.snapshot.paramMap.get('idusu')
+    console.log(this.idalumno);
+    
   }
 
   ngOnInit() {
@@ -52,7 +62,8 @@ export class CrearPage implements OnInit {
       this.storage.get('idusuario')
       .then(idusu=>{
         _idusu = idusu
-        return this.rutina.crearRutinaDefecto(_idusu,this.myForm.value)
+        let tipo=this.idalumno?'p':'d'
+        return this.rutina.crearRutina(_idusu,this.myForm.value,tipo)
       })
       .then(res=>{
         let func = []
@@ -79,6 +90,10 @@ export class CrearPage implements OnInit {
         //id_ejercicio,idrut_ejer
       })
       .then(()=>{
+        return this.guardarRut_usu(_idrut)
+      })
+      .then(()=>{
+
         this.presentToast('Se guardo corectamente la rutina')
         this.navCtrl.back()
       })
@@ -89,6 +104,11 @@ export class CrearPage implements OnInit {
         this.navCtrl.back()
       })
     }
+  }
+  guardarRut_usu(_idrut){
+    if(this.idalumno)
+      return this.rutina.crearRut_Usu(this.idalumno,_idrut,this.personal)
+    else return true
   }
   async presentToast(text) {
     const toast = await this.toastController.create({
