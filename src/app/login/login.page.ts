@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Router } from '@angular/router';
+import { FcmService } from '../services/fcm/fcm.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginPage implements OnInit {
 
   estado = false
   constructor(
+    private fcm:FcmService,
     private auth: AuthFacebookProvider,
     private user: UsuarioProvider,
     private splashscreen: SplashScreen,
@@ -57,11 +59,19 @@ export class LoginPage implements OnInit {
         //cli
         this.navCtrl.navigateRoot(['/adm/cursos', { hola: 'holamundo' }])
         cargar.dismiss()
+        this.fcm.getToken().then(token=>{
+          console.log("token",token);
+          alert(token)
+          
+        }).catch(error=>{
+          alert(JSON.stringify(error))
+        })
       })
       .catch(err => {
         console.log(err)
         cargar.dismiss()
       })
+      
   }
   loginWithFacebook2() {
     this.auth.facebookauth()
@@ -73,12 +83,14 @@ export class LoginPage implements OnInit {
         console.log(data)
         this.user.verUsuarioIDfb(data.id)
           .then(userFb => {
+       
             if (userFb.length > 0) {
               this.storage.set('idusuario', userFb[0].idusuarios);
               this.storage.set('rol', "alumno");
+              //this.storage.set('token',this.fcm.getToken())
               this.user.actualizarusuario(data)
                 .then(datas => {
-                  //console.log(datas)
+                  console.log()
                   resolve('datos creados correctos')
                 }).catch(err => console.log(err)
                 )

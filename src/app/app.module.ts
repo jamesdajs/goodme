@@ -39,6 +39,8 @@ import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { FcmService } from './services/fcm/fcm.service';
+import { Firebase } from '@ionic-native/firebase/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -59,6 +61,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+
     AngularFireAuth,
     UsuarioProvider,
     AuthFacebookProvider,
@@ -69,7 +72,9 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     SocialSharing,
     AuthGuardService,
     Clipboard,
-    WheelSelector
+    WheelSelector,
+    FcmService,
+    Firebase
 
   ],
   bootstrap: [AppComponent]
