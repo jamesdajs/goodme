@@ -9,7 +9,8 @@ export const firebaseConfig = {
       databaseURL: "https://entrenador-personal-20e1f.firebaseio.com",
       projectId: "entrenador-personal-20e1f",
       storageBucket: "entrenador-personal-20e1f.appspot.com",
-      messagingSenderId: "150980917345"
+      messagingSenderId: "150980917345",
+      appId: "1:150980917345:web:f6fbc393d8ce3b51"
     },
     cliente_endpoint: "cliente",
     instructor_endpoint: "instructor"
