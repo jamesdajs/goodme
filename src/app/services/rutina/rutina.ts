@@ -234,7 +234,7 @@ export class RutinaProvider {
     .toPromise()
   }
   listarEjerciciosporRutinas(idrut) {
-    let sql = "select e.*,r.idrut_ejer from ejercicios e, rut_ejer r where r.id_ejercicio=e.idejercicios and r.id_rutina=?"
+    let sql = "select e.*,r.idrut_ejer, t.nombre as tipo from ejercicios e, rut_ejer r,tipo_ejercicios t where t.idtipo_ejercicios=e.id_tipoejercicio and  r.id_ejercicio=e.idejercicios and r.id_rutina=?"
     let values = [idrut]
     return this.http.post<[any]>(this.urlSelect, { sql: sql, values: values }, { headers: this.headers })
     .toPromise()

@@ -14,7 +14,6 @@ export class AlumnosdetallePage implements OnInit {
   @ViewChild('mySlider') slider: IonSlides;
   selectedSegment = 'first';
   select = "";
-  ejercicios = {}
   rutinas = []
   slides = [
     {
@@ -104,12 +103,12 @@ export class AlumnosdetallePage implements OnInit {
   cargarRutinas() {
     this.rutina.listarRutinas_cli(this.datos.idusuarios, true)
       .then(array => {
-        console.log(array);
         for (let i in array) {
-          this.ejercicios[array[i].idrutinas] = []
           array[i]['estadohidden'] = false
           array[i]['ejercicios'] = []
         }
+
+        console.log(array);
         this.rutinas = array
       })
   }

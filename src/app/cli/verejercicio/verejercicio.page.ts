@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-verejercicio',
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./verejercicio.page.scss'],
 })
 export class VerejercicioPage implements OnInit {
-
-  constructor() { }
+  ejercicio
+  constructor(private router:Router) {
+    this.ejercicio=this.router.getCurrentNavigation().extras
+    console.log(this.ejercicio);
+    
+   }
 
   ngOnInit() {
   }

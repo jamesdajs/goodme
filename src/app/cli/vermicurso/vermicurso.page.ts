@@ -44,19 +44,17 @@ export class VermicursoPage implements OnInit {
      });
      this.slider.slideTo(selectedIndex);
    }
- 
-   onSlideChanged(event) {
-     console.log('Slide changed',this.select);
-     this.selectedSegment = this.select;
-   }
-   //--------------end funciones tab slide--------------*/
 
-   //--------------FUNCION PARA SUB ITEM-------------
-   showSubmenu: boolean = false;
+  onSlideChanged(event) {
 
-   menuItemHandler(): void {
-     this.showSubmenu = !this.showSubmenu;
-   }
+    this.slider.getActiveIndex()
+      .then(num => {
+        this.selectedSegment = this.slides[num].id
+      })
+
+  }
+
+
   ngOnInit() {
     this.cargarRutinas()
   }
@@ -65,17 +63,31 @@ export class VermicursoPage implements OnInit {
     
     this.rutina.listarRutinas_cli(this.idusu, true)
       .then(array => {
-        console.log(array);
         for (let i in array) {
-          this.ejercicios[array[i].idrutinas] = []
           array[i]['estadohidden'] = false
           array[i]['ejercicios'] = []
         }
+
+        console.log(array);
         this.rutinas = array
       })
   }
-  verejercicio(){
-    this.router.navigate(['/cli/mis-cursos/vermicurso/verejercicio'])
+  verejercicio(item){
+    this.router.navigate(['/cli/mis-cursos/vermicurso/verejercicio'],item)
+  }
+  menuItemHandler(item): void {
+    console.log(item);
+    
+    if (item['ejercicios'].length == 0)
+      this.rutina.listarEjerciciosporRutinas(item.idrutinas)
+        .then(data => {
+          item['ejercicios'] = data
+          item.estadohidden = true
+        })
+        .catch(err=>console.log(err)
+        )
+    else item.estadohidden = !item.estadohidden
+
   }
 
 }

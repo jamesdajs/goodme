@@ -45,7 +45,11 @@ const routes: Routes = [
                   {
                     path: 'modificardef',
                     loadChildren: '../rutinas/modificar/modificar.module#ModificarPageModule'
-                  }
+                  },
+                  {
+                    path: 'detalleejer',
+                    loadChildren: '../ejercicios/detalle/detalle.module#DetallePageModule'
+                  },
                   
                 ]
               },

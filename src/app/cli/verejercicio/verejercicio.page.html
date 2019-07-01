@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
-    <ion-title>Nombre ejercicio</ion-title>
+    <ion-title>{{ejercicio.nombre}}</ion-title>
     <ion-button fill="clear" (click)="opciones()" slot="end">
             <ion-icon name="md-list-box"></ion-icon>
         </ion-button>
@@ -23,12 +23,11 @@
         </ion-slide>
     </ion-slides>
     <ion-card-header >
-        <ion-card-title>Tipo: Hombres</ion-card-title>
+        <ion-card-title>Tipo: {ejerciio.tipo}</ion-card-title>
     </ion-card-header>
     
     <ion-card-content >
-        Instruccione s: a Awesome content Awesome content Awesome contentAwesome
-        Awesome content contentAwesome content Awesome content
+        Instrucciones: {{ejercicio.instrucciones}}
     </ion-card-content>
 
         <ion-grid class="ion-padding">
