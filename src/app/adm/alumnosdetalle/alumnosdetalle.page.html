@@ -81,17 +81,15 @@
       </ion-fab>
       <ion-list id="sidenav">
         <div *ngFor='let r of rutinas'>
-
           <ion-item >
             <ion-label (click)="menuItemHandler(r)">{{r.nombre}}
               <p>
-                  {{r.descripcion}}
+                {{r.descripcion}}
               </p>
             </ion-label>
             <ion-button fill="clear" (click)="presentsheetRutina(r)">
                 <ion-icon slot="icon-only" name="more" ></ion-icon>
-      
-              </ion-button>
+            </ion-button>
           </ion-item>
           
           <ion-item-group submenu [class.visible]="r.estadohidden">

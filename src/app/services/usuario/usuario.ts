@@ -357,7 +357,7 @@ verSitienenDatos() {
 
   //RECUPERAR HORARIO DE USUARIO
   mishorarios(id):Promise<any> {
-    let sql = "select * from horarios where id_usuarios=? "
+    let sql = "select h.*, (SELECT COUNT(id_horario) FROM registro_horarios WHERE id_horario=h.idhorarios)AS contador from horarios h where h.id_usuarios=?"
     let values = [id]
     return this.http.post(this.urlSelect, { sql: sql, values: values}, { headers: this.headers })
       .toPromise()
