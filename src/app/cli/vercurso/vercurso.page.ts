@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/core';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage';
 import { CursoService } from 'src/app/services/curso/curso.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-vercurso',
@@ -13,14 +13,21 @@ export class VercursoPage implements OnInit {
 
   datos
   comision
+  verificacion=[]
   constructor(private routes:Router,
-    private storage:Storage,
-    private curso: CursoService
-
-    ) { 
-    this.datos=this.routes.getCurrentNavigation().extras
-    console.log(this.datos);
-    
+    private servicioCurso:CursoService,
+    private storage:Storage) { 
+      this.datos=this.routes.getCurrentNavigation().extras
+      this.storage.get("idusuario")
+      .then(id => {
+        console.log("id usuario"+id+ " "+this.datos.idcursos);
+        console.log(this.datos);
+        this.servicioCurso.verificarsuscripcion(this.datos.idcursos,id).then(resp=>{
+          this.verificacion=resp;
+          console.log("nuemro de cursos"+this.verificacion.length);
+        
+        })
+      })
   }
   showToolbar = false;
   onScroll($event: CustomEvent<ScrollDetail>) {
@@ -45,10 +52,22 @@ export class VercursoPage implements OnInit {
   verinstructor(id){
     this.routes.navigate(['/cli/inicio/vercurso/verinstructor'],id)
   }
+
+  verHorarios(idcurso,idusuario){
+    console.log("idusu ver curso"+idusuario);
+    
+    this.routes.navigate(['/cli/inicio/vercurso/selecthorario',{idc:idcurso,idu:idusuario}])
+  }
+
+  //funciona que redirecciona al curso supscrito
+  gocourse(cur,usu){
+    
+  }
+
   inscribirme(){
     this.storage.get('idusuario')
     .then(id=>{
-      return this.curso.crearUsu_cur(id,this.datos.idcursos,'i')
+      return this.servicioCurso.crearUsu_cur(id,this.datos.idcursos,'i')
     })
     .then(()=>{
       console.log('se asigno correctamente el alumno al curso');

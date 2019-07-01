@@ -6,36 +6,17 @@
 
 <ion-content no-padding>
   <ion-list>
-    <ion-item (click)="vermicurso()">
-        <ion-avatar item-start>
-            <img src="../../../assets/imgs/fotografo.jpg">
-          </ion-avatar>
-      <ion-label class="label-name-course">
-        Zumba 
-        <br>
-        <h5>Insctructor: Daniel Alejandro Jaimes</h5>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-        <ion-avatar item-start>
-            <img src="../../../assets/imgs/fotografo.jpg">
-          </ion-avatar>
-      <ion-label class="label-name-course">
-        Yoga
-        <br>
-        <h5>Insctructor: Luis Fernando Huanca</h5>
-      </ion-label>
-
-    </ion-item>
-    <ion-item>
-        <ion-avatar item-start>
-            <img src="../../../assets/imgs/fotografo.jpg">
-          </ion-avatar>
-      <ion-label class="label-name-course">
-        Musculito
-          <br>
-          <h5>Insctructor: Omar Canaza Nina</h5>
-      </ion-label>
-    </ion-item>
+    <div *ngFor="let item of datos; let i=index ">
+        <ion-item (click)="vermicurso()">
+            <ion-avatar item-start>
+                <img [src]="item.foto">
+              </ion-avatar>
+          <ion-label class="label-name-course">
+            {{item.titulo}}
+            <br>
+            <h5>Insctructor: {{item.instructor}}</h5>
+          </ion-label>
+        </ion-item>
+    </div>
   </ion-list>
 </ion-content>

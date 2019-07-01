@@ -47,10 +47,18 @@ export class CursoService {
       let values=[estado]
       return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
     }
+
     listarfotos(idcurso){
       let sql="select * from fotos_curso where id_curso=?" 
       let values=[idcurso]
       return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers}).toPromise()
+    }
+
+    //listar una foto de un curso
+    listarfotoCurso(idcurso){
+      let sql="select thumb from fotos_curso where id_curso=? limit 1" 
+      let values=[idcurso]
+      return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers}).toPromise()
     }
 
       //listar cursos
@@ -66,6 +74,43 @@ export class CursoService {
       let values=[query]
       return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
     }
+
+    //guardar hoarios seleccionados en tabla registro usuarios
+    guardar_registro_horario(id_horario,id_usucur) {
+      let sql = "INSERT into  registro_horarios (id_horario,id_usucur) VALUES (?,?)"
+      let values = [id_horario,id_usucur]
+      return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
+        .toPromise()
+    }
+
+    //verifica si un usuario ya esta suscrito al curso
+    verificarsuscripcion(idcurso,idusuario){
+      let sql="select * from usu_cur where id_curso=? and id_usuario=? and tipo='i'" 
+      let values=[idcurso,idusuario]
+      return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+
+    //verifica si un usuario ya esta suscrito al curso
+    listarmiscursos(idusuario){
+      /*(
+                SELECT uuu.fullname 
+                FROM usu_cur uu,  usuarios uuu 
+                WHERE uu.id_usuario=uuu.idusuarios and uu.tipo='c' and uc.id_curso=uu.id_curso) AS instructor, */ 
+    let sql=`SELECT (
+                SELECT uuu.fullname 
+                FROM usu_cur uu,  usuarios uuu 
+                WHERE uu.id_usuario=uuu.idusuarios and uu.tipo='c' and uc.id_curso=uu.id_curso) AS instructor,
+                c.titulo,
+                c.idcursos
+            FROM usu_cur uc,cursos c 
+            WHERE uc.id_usuario=? and uc.id_curso=c.idcursos and uc.tipo='i'`
+
+      let values=[idusuario]
+      return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
+      .toPromise()
+    }
+    
     listarMisAlumnos(idusu){
       let sql=`
       SELECT u.*,uc.id_curso,c.titulo 
