@@ -29,7 +29,7 @@ export class ListaPage implements OnInit {
   }
   cargardatos() {
     this.storage.get('idusuario')
-      .then(idusu => this.rutina.listarRutinasDefecto(idusu, true))
+      .then(idusu => this.rutina.listarRutinas(idusu, true,'d'))
       .then(array => {
         console.log(array);
         for(let i in array){

@@ -64,4 +64,18 @@ export class VercursoPage implements OnInit {
     
   }
 
+  inscribirme(){
+    this.storage.get('idusuario')
+    .then(id=>{
+      return this.servicioCurso.crearUsu_cur(id,this.datos.idcursos,'i')
+    })
+    .then(()=>{
+      console.log('se asigno correctamente el alumno al curso');
+      
+    })
+    .catch(err=>{
+      console.log(err);
+      
+    })
+  }
 }

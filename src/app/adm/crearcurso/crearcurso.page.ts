@@ -15,7 +15,7 @@ import { Storage } from '@ionic/storage';
 export class CrearcursoPage implements OnInit {
   myFormins: FormGroup
   imagenes = []
-  duracion
+  duracion = ''
   fecha
   horas='0'
   semanas ='0'
@@ -26,7 +26,7 @@ export class CrearcursoPage implements OnInit {
     moneda: ""
   }
   jsonData: any;
-  blobktombal
+  blobthumbnail
   constructor(
     private fotos: FotosService,
     private selector: WheelSelector,
@@ -40,25 +40,27 @@ export class CrearcursoPage implements OnInit {
   ) {
     this.jsonData = {
       horas: [
-        { description: "1" },
-        { description: "2" },
-        { description: "3" },
-        { description: "4" },
-        { description: "5" },
-        { description: "6" },
-        { description: "7" }
+        { name:'Horas', id: "" },
+        { name:'1 hora', id: "1" },
+        { name:'2 horas', id: "2" },
+        { name:'3 horas', id: "3" },
+        { name:'4 horas', id: "4" },
+        { name:'5 horas', id: "5" },
+        { name:'6 horas', id: "6" },
+        { name:'7 horas', id: "7" }
       ],
       semanas: [
-        { description: "1" },
-        { description: "2" },
-        { description: "3" },
-        { description: "4" },
-        { description: "5" },
-        { description: "6" },
-        { description: "7" },
-        { description: "8" },
-        { description: "9" },
-        { description: "10" }
+        { name:'Semanas',id: "" },
+        { name:'1 semana',id: "1" },
+        { name:'2 semanas', id: "2" },
+        { name:'3 semanas', id: "3" },
+        { name:'4 semanas', id: "4" },
+        { name:'5 semanas', id: "5" },
+        { name:'6 semanas', id: "6" },
+        { name:'7 semanas', id: "7" },
+        { name:'8 semanas', id: "8" },
+        { name:'9 semanas', id: "9" },
+        { name:'10 semanas', id: "10" }
       ]
     };
     this.myFormins = this.formb.group({
@@ -74,16 +76,19 @@ export class CrearcursoPage implements OnInit {
 
   //cuncion para seleccionar imagen
   selecImage() {
-    this.fotos.escogerImagenes(5).then(images => {
-      
-      this.imagenes = images;
-      return this.fotos.createThumbnail(images[0].base64)
-    })
-    .then(data=>{
-      this.blobktombal=data.blob
-      //alert(JSON.stringify(data.size))
-    })
-    .catch(err => console.log(err))
+    this.fotos.escogerImagenes(5)
+      .then(urlarray => {
+        this.imagenes = urlarray
+        let aux=[]
+        for(let i in urlarray)
+          aux.push(this.fotos.createThumbnail(urlarray[i].base64))
+        return Promise.all(aux)
+      })
+      .then(data=>{
+        this.blobthumbnail=data
+        //alert(JSON.stringify(data.size))
+      })
+      .catch(err => console.log(err))
   }
 
   selectDuracion() {
@@ -92,18 +97,18 @@ export class CrearcursoPage implements OnInit {
       items: [
         this.jsonData.horas, this.jsonData.semanas
       ],
+      displayKey: 'name',
       positiveButtonText: "Ok",
       negativeButtonText: "Cancelar",
       defaultItems: [
-        { index: 0, value: this.jsonData.horas[0].description },
-        { index: 1, value: this.jsonData.semanas[0].description }
+        { index: 0, value: this.jsonData.horas[0].name },
+        { index: 1, value: this.jsonData.semanas[0].name }
       ]
     }).then(
       result => {
-        console.log("resultado :" + result[0].description + ' ' + result[1].description);
-        this.duracion = result[0].description + ' hora(s) por ' + result[1].description +' semana(s) ';
-        this.horas = result[0].description
-        this.semanas = result[1].description;
+        this.duracion = this.jsonData.horas[result[0].index].name + ' por ' + this.jsonData.semanas[result[1].index].name ;
+        this.horas = this.jsonData.horas[result[0].index].id
+        this.semanas = this.jsonData.horas[result[1].index].id;
       },
       err => console.log('Error: ' + JSON.stringify(err))
     );
@@ -121,7 +126,7 @@ export class CrearcursoPage implements OnInit {
     if (this.myFormins.valid) {
       let loading = this.presentLoading('Guardando datos')
       this.date = new Date('yyyy-MM-dd HH:mm:ss Z')
-      let _idcurso,_idusucur
+      let _idcurso,_idusucur,_resimg=[],_resthumb=[]
       this.curso.crearcurso(this.myFormins.value, this.date, this.horas, this.semanas)
 
         .then(res => {
@@ -132,19 +137,29 @@ export class CrearcursoPage implements OnInit {
           return this.curso.crearUsu_cur(idusu, _idcurso, 'c')
         })
         .then(idusucur => {
-          console.log(idusucur);
+          
           _idusucur=idusucur
           let aux=[]
           for(let i in this.imagenes)
             aux.push(this.fotos.subirimagen(this.imagenes[i].blob,'cursos',i))
-          if(this.blobktombal)
-            aux.push(this.fotos.subirimagen(this.blobktombal,'cursos','5'))
+          return Promise.all(aux)
+        })
+        .then(array => {
+          _resimg=array
+          let aux=[]
+          for(let i in this.blobthumbnail)
+            aux.push(this.fotos.subirimagen(this.blobthumbnail[i].blob,'cursos',"t_"+i))
           return Promise.all(aux)
         })
         .then((array)=>{
+          _resthumb=array
           let aux=[]
           for(let i in array)
-            aux.push(this.curso.crearImagenCurso(_idcurso,{nombre:array[i].name,url:array[i].dir+array[i].name}))
+            aux.push(this.curso.crearImagenCurso(_idcurso,{
+              nombre:_resimg[i].name,
+              url:_resimg[i].dir+_resimg[i].name,
+              thumb:array[i].dir+array[i].name
+            }))
           return Promise.all(aux)
         })
         .then(res=>{

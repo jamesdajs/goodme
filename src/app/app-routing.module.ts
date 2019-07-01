@@ -6,17 +6,8 @@ import { AuthguardadmService } from './services/authguardadm.service';
 const routes: Routes = [
   { path: '', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'adm', loadChildren: './adm/tabs/tabs.module#TabsPageModule',canActivate:[AuthguardadmService] },
-  { path: 'cli', loadChildren: './cli/tabs/tabs.module#TabsPageModule', canActivate: [AuthGuardService] },
-  //{ path: 'ejercicios', loadChildren: './adm/ejercicios/ejercicios.module#EjerciciosPageModule' },
-  { path: 'alumnosdetalle', loadChildren: './adm/alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule' },
-  { path: 'pagosnet', loadChildren: './cli/pagosnet/pagosnet.module#PagosnetPageModule' },
-  
-  
- 
-  
-  //{ path: 'crear-tipoejercicio', loadChildren: './adm/crear-tipoejercicio/crear-tipoejercicio.module#CrearTipoejercicioPageModule' },
-
-];
+  { path: 'cli', loadChildren: './cli/tabs/tabs.module#TabsPageModule', canActivate: [AuthGuardService] }
+]
 
 
 @NgModule({

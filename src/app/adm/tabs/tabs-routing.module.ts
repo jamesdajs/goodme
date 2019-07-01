@@ -33,7 +33,21 @@ const routes: Routes = [
               },
               {
                 path: 'alumnodetalle',
-                loadChildren: '../alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule'
+                children: [
+                  {
+                    path: '',
+                    loadChildren: '../alumnosdetalle/alumnosdetalle.module#AlumnosdetallePageModule'
+                  },
+                  {
+                    path:'creardef',
+                    loadChildren: '../rutinas/crear/crear.module#CrearPageModule'
+                  },
+                  {
+                    path: 'modificardef',
+                    loadChildren: '../rutinas/modificar/modificar.module#ModificarPageModule'
+                  }
+                  
+                ]
               },
             ]
         },
@@ -51,9 +65,9 @@ const routes: Routes = [
                 path: 'mod-perfil',
                 loadChildren: '../mod-perfil/mod-perfil.module#ModPerfilPageModule'
               },
-              { 
-                path: 'mishorarios', 
-                loadChildren: '../mishorarios/mishorarios.module#MishorariosPageModule' 
+              {
+                path: 'mishorarios',
+                loadChildren: '../mishorarios/mishorarios.module#MishorariosPageModule'
               },
 
             ]
@@ -95,7 +109,7 @@ const routes: Routes = [
 
                 ]
               },
-              
+
             ]
         },
         {

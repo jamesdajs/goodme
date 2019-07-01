@@ -10,8 +10,8 @@
 <ion-content class="ion-no-padding" full-screem [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <div>
     <ion-slides pager>
-        <ion-slide>
-          <img src="../../../assets/imgs/defecto2.jpeg" alt="">
+        <ion-slide *ngFor="let f of datos.fotos">
+          <img [src]="f.url" alt="">
         </ion-slide>
       </ion-slides>
     </div> 

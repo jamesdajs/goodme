@@ -38,9 +38,9 @@ export class MiscursosPage implements OnInit {
     private storage:Storage
   ) { }
   ngOnInit() {
+    this.listarcursos()
   }
   ionViewWillEnter() {
-    this.listarcursos()
   }
   //-------------lista mis cursos----------------
   //FUNCION LISTAR CURSOS
@@ -67,7 +67,6 @@ export class MiscursosPage implements OnInit {
 
   //----------------funciones tab slide------------------
   onSegmentChanged(segmentButton) {
-    console.log("Segment changed to", segmentButton.detail.value);
     this.select=segmentButton.detail.value;
      const selectedIndex = this.slides.findIndex((slide) => {
        return slide.id === segmentButton.detail.value;
@@ -76,14 +75,12 @@ export class MiscursosPage implements OnInit {
    }
  
    onSlideChanged(event) {
-     console.log('Slide changed',this.select);
      
      this.slider.getActiveIndex()
      .then(num=>{
        this.selectedSegment=this.slides[num].id
-      console.log(num);
      })
-     this.selectedSegment = this.select;
+     
    }
    //--------------end funciones tab slide--------------*/
 

@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { RutinaProvider } from 'src/app/services/rutina/rutina';
 
 @Component({
   selector: 'app-vermicurso',
@@ -12,6 +13,9 @@ export class VermicursoPage implements OnInit {
   @ViewChild('mySlider') slider: IonSlides;
   selectedSegment='first';
   select="";
+  ejercicios = {}
+  rutinas = []
+  idusu
   slides = [
     {
       id: "first",
@@ -26,7 +30,10 @@ export class VermicursoPage implements OnInit {
       title: "Thrid Slide"
     }
   ];
-  constructor(private router:Router) { }
+  constructor(private router:Router,
+    private rutina: RutinaProvider,) {
+      this.idusu=this.router.getCurrentNavigation().extras
+     }
 
    //----------------funciones tab slide------------------
    onSegmentChanged(segmentButton) {
@@ -51,8 +58,22 @@ export class VermicursoPage implements OnInit {
      this.showSubmenu = !this.showSubmenu;
    }
   ngOnInit() {
+    this.cargarRutinas()
   }
-
+  cargarRutinas() {
+    console.log(this.idusu);
+    
+    this.rutina.listarRutinas_cli(this.idusu, true)
+      .then(array => {
+        console.log(array);
+        for (let i in array) {
+          this.ejercicios[array[i].idrutinas] = []
+          array[i]['estadohidden'] = false
+          array[i]['ejercicios'] = []
+        }
+        this.rutinas = array
+      })
+  }
   verejercicio(){
     this.router.navigate(['/cli/mis-cursos/vermicurso/verejercicio'])
   }

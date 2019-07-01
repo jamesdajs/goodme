@@ -32,16 +32,18 @@ export class CursoService {
       return this.http.post<any>(this.urlInsert,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
     }
-    crearImagenCurso(idcurso: string, datos: { nombre: string, url: string }) {
-      let sql = "INSERT into  fotos_curso (nombre,url,id_curso) VALUES (?,?,?)"
-      let values = [datos.nombre, datos.url, idcurso]
+    crearImagenCurso(idcurso: string, datos: { nombre: string, url: string,thumb:string }) {
+      let sql = "INSERT into  fotos_curso (nombre,url,id_curso,thumb) VALUES (?,?,?,?)"
+      let values = [datos.nombre, datos.url, idcurso,datos.thumb]
       return this.http.post<any>(this.urlInsert, { sql: sql, values: values }, { headers: this.headers })
         .toPromise()
     }
 
     //listar cursos
     listarcursos(estado){
-      let sql="select c.*,u.idusuarios, u.fullname, u.foto, u.telefono from cursos c,usu_cur uc,usuarios u where c.estado=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo='c' order by c.fecha desc limit 3" 
+      let sql=`select c.*,u.idusuarios, u.fullname, u.foto, u.telefono 
+      from cursos c,usu_cur uc,usuarios u  
+      where c.estado=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo='c' order by c.fecha desc `
       let values=[estado]
       return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
     }
@@ -61,7 +63,7 @@ export class CursoService {
 
       //listar cursos
     miscursospublicados(estado,idusu){
-      let sql="select c.*,u.idusuarios, u.fullname, u.foto, u.telefono from cursos c,usu_cur uc,usuarios u where c.estado=? and uc.id_usuario=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo=0 order by c.fecha desc limit 3"
+      let sql="select c.*,u.idusuarios, u.fullname, u.foto, u.telefono from cursos c,usu_cur uc,usuarios u where c.estado=? and uc.id_usuario=? and u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo='c' order by c.fecha desc limit 3"
       let values=[estado,idusu]
       return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
     }
@@ -107,5 +109,19 @@ export class CursoService {
       let values=[idusuario]
       return this.http.post<any>(this.urlSelect,{sql:sql,values:values},{headers:this.headers})
       .toPromise()
+    }
+    
+    listarMisAlumnos(idusu){
+      let sql=`
+      SELECT u.*,uc.id_curso,c.titulo 
+      from usuarios u, usu_cur uc ,cursos c
+      WHERE u.idusuarios=uc.id_usuario and uc.id_curso=c.idcursos and uc.tipo='i' and 
+      uc.id_curso in (
+        SELECT uc2.id_curso 
+        from usu_cur uc2,usuarios u2 
+        where u2.idusuarios=uc2.id_usuario and uc2.tipo='c' and u2.idusuarios=?
+        )`
+      let values=[idusu]
+      return this.http.post<[]>(this.urlSelect,{sql:sql,values:values},{headers:this.headers}).toPromise()
     }
 }

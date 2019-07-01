@@ -10,13 +10,14 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./mycourses.page.scss'],
 })
 export class MycoursesPage implements OnInit {
+  id
   datos=[]
   constructor(private routes:Router,
     private servicioCurso:CursoService,
     private storage:Storage) { 
       this.storage.get("idusuario")
       .then(id => {
-  
+        this.id=id
         this.servicioCurso.listarmiscursos(id).then(resp=>{
          
           resp.forEach(item=>{
@@ -38,7 +39,7 @@ export class MycoursesPage implements OnInit {
   }
 
   vermicurso(){
-    this.routes.navigate(['/cli/mis-cursos/vermicurso'])
+    this.routes.navigate(['/cli/mis-cursos/vermicurso'],this.id)
   }
 
 }
