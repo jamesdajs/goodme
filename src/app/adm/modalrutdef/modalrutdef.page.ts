@@ -15,7 +15,7 @@ export class ModalrutdefPage implements OnInit {
     fechafin:''
   }
   idselect=''
-  @Input() id_usuario
+  @Input() idusuarios
   constructor(
     private storage :Storage,
     private rutina:RutinaProvider,
@@ -24,6 +24,8 @@ export class ModalrutdefPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.idusuarios);
+    
     this.cargardatos()
   }
   cargardatos() {
@@ -41,7 +43,7 @@ export class ModalrutdefPage implements OnInit {
     this.modalController.dismiss()
   }
   guardar() {
-    this.rutina.crearRut_Usu(this.id_usuario,this.idselect,this.personal)
+    this.rutina.crearRut_Usu(this.idusuarios,this.idselect,this.personal)
     .then(res=>{
       this.presentToast('Se asigno correctamente la rutina al alumno')
       this.modalController.dismiss()

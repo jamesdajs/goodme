@@ -138,6 +138,8 @@ export class AlumnosdetallePage implements OnInit {
         icon: 'paper',
         handler: () => {
           console.log('Share clicked');
+
+          item['idalumno']=this.datos.idusuarios
           if(item.tipo=='p')
           this.router.navigate(['/adm/misalumnos/alumnodetalle/modificardef', item])
           else this.presentToast('Las rutinas por defecto no se pueden modifican en esta vista')
